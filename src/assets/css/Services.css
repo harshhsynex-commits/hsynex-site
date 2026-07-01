@@ -1,0 +1,301 @@
+/* Services Hero */
+.services-hero {
+  padding: clamp(6rem, 12vw, 9rem) 0 3rem 0;
+  text-align: center;
+}
+
+.services-hero-lead {
+  max-width: 760px;
+  margin: 0 auto;
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Services Grid */
+.services-grid-section {
+  padding: 3rem 0 var(--spacing-section) 0;
+}
+
+.services-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.service-detail-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2.75rem;
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Numbered watermark in top-right */
+.service-detail-card::after {
+  content: attr(data-number);
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  font-weight: 800;
+  color: rgba(109, 40, 217, 0.04);
+  line-height: 1;
+  pointer-events: none;
+  transition: var(--transition-smooth);
+}
+
+.service-detail-card:hover::after {
+  color: rgba(109, 40, 217, 0.07);
+}
+
+.service-detail-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-glow);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.service-detail-card .card-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(124, 58, 237, 0.06);
+  color: var(--primary-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  transition: var(--transition-smooth);
+  box-shadow: var(--shadow-xs);
+}
+
+.service-detail-card:hover .detail-icon-wrap {
+  background: var(--primary-purple);
+  color: white;
+  box-shadow: 0 4px 16px rgba(109, 40, 217, 0.25);
+  transform: scale(1.05);
+}
+
+.service-detail-card h3 {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.card-subtitle {
+  font-size: var(--text-sm);
+  color: var(--primary-teal);
+  font-weight: 600;
+  display: block;
+}
+
+.card-details {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.75rem;
+  flex-grow: 1;
+}
+
+.feature-bullets {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+}
+
+.bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.bullet-icon {
+  width: 16px;
+  height: 16px;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+  background: rgba(13, 148, 136, 0.08);
+  border-radius: 50%;
+  padding: 2px;
+}
+
+/* Process Section */
+.process-section {
+  padding: var(--spacing-section) 0;
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.process-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  position: relative;
+  margin-top: 2rem;
+}
+
+.process-step {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.step-number-wrap {
+  position: relative;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.step-num {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--primary-teal);
+  background: rgba(13, 148, 136, 0.06);
+  border: 2px solid var(--primary-teal);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.06);
+  animation: pulse-glow 3s ease-in-out infinite;
+  transition: var(--transition-smooth);
+}
+
+.process-step:hover .step-num {
+  background: var(--primary-teal);
+  color: white;
+  box-shadow: 0 4px 20px rgba(13, 148, 136, 0.3);
+}
+
+.step-connector {
+  position: absolute;
+  left: 50px;
+  right: -2rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-teal) 0%, rgba(13, 148, 136, 0.15) 100%);
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.process-step:last-child .step-connector {
+  display: none;
+}
+
+.process-step h3 {
+  font-size: var(--text-xl);
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.process-step p {
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+
+/* Consultation Section */
+.consultation-section {
+  padding: var(--spacing-section) 0;
+}
+
+.consultation-box {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  padding: clamp(2.5rem, 5vw, 4rem);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: var(--shadow-lg);
+}
+
+.consultation-box h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.consultation-box p {
+  font-size: var(--text-lg);
+  max-width: 640px;
+  margin: 0 auto 2.5rem auto;
+}
+
+.consultation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+/* ===== Responsive Adaptations ===== */
+@media (max-width: 992px) {
+  .services-detail-grid {
+    grid-template-columns: 1fr;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .process-timeline {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+  .step-connector {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .consultation-box {
+    padding: 2.5rem 1.5rem;
+  }
+  .consultation-box h2 {
+    font-size: 1.6rem;
+  }
+  .service-detail-card {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .feature-bullets {
+    grid-template-columns: 1fr;
+  }
+  .process-timeline {
+    grid-template-columns: 1fr;
+  }
+  .consultation-buttons {
+    flex-direction: column;
+  }
+  .consultation-buttons .btn {
+    width: 100%;
+  }
+  .service-detail-card::after {
+    font-size: 3rem;
+  }
+}
