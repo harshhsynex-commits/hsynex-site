@@ -1,174 +1,178 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import SectionHeader from '../components/SectionHeader';
-import StatsCounter from '../components/StatsCounter';
-import '../assets/css/About.css';
+import React, { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import SectionHeader from "../components/SectionHeader";
+import "../assets/css/About.css";
+
+function useScrollReveal() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+    const elements = ref.current?.querySelectorAll(".scroll-animate");
+    elements?.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
 
 export default function About() {
-  const coreValues = [
-    {
-      title: 'Technical Excellence',
-      description: 'We strive for exceptional quality, writing clean, optimized code and maintaining rigorous engineering standards.',
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-      )
-    },
-    {
-      title: 'Security-First Culture',
-      description: 'We embed threat-modeling, static code analysis, and encryption protocols into every system we engineer.',
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-      )
-    },
-    {
-      title: 'Strategic Partnership',
-      description: 'We work closely with clients to understand their business constraints and deliver high-value solutions.',
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-      )
-    }
-  ];
+  const pageRef = useScrollReveal();
 
-  const teamMembers = [
+  const corePillars = [
     {
-      name: 'Sarah Jenkins',
-      role: 'CEO & Founder',
-      bio: 'Ex-AWS Tech Lead with 15+ years of experience leading complex enterprise architectures and cloud transformations.',
-      initials: 'SJ'
+      title: "Business-First Engineering",
+      desc: "We don't build software for the sake of technology. Every architectural choice, database schema, and interface interaction must solve an operational friction point or unlock revenue.",
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+      ),
     },
     {
-      name: 'Marcus Chen',
-      role: 'Chief Technology Officer',
-      bio: 'Cybersecurity researcher and system architect who designs our high-availability and zero-trust solutions.',
-      initials: 'MC'
+      title: "Product Thinking Over 'Agency' Delivery",
+      desc: "We approach projects not as short-term ticket-completers, but as product co-founders — thinking through unit economics, scalability curves, onboarding flows, and release iterations.",
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+      ),
     },
     {
-      name: 'Elena Rostova',
-      role: 'VP of Engineering',
-      bio: 'Agile delivery lead focused on high performance engineering squads, continuous integration, and rapid releases.',
-      initials: 'ER'
+      title: "Zero Bloat & Modern Standards",
+      desc: "We reject bloated legacy templates and unnecessary libraries. We engineer lean, accessible, lightning-fast interfaces on modern React and cloud architectures.",
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+      ),
     },
     {
-      name: 'David Kim',
-      role: 'Head of Data Science',
-      bio: 'AI consultant specializing in machine learning pipelines, generative models, and analytics dashboards.',
-      initials: 'DK'
-    }
+      title: "Security & Long-Term Durability",
+      desc: "Our codebases are built with clean modular abstractions, automated testing, strict authorization boundaries, and thorough documentation for frictionless handover.",
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      ),
+    },
   ];
 
   return (
-    <div className="about-page">
-      {/* Hero Header */}
-      <section className="about-hero">
+    <div className="about-page-root" ref={pageRef}>
+      <div className="ambient-glow-top"></div>
+
+      {/* Hero Section */}
+      <section className="about-hero-section">
         <div className="container">
           <SectionHeader
             subtitle="WHO WE ARE"
-            title="Pioneering Scalable Solutions for the Enterprise"
+            title="Building the software layer for forward-thinking businesses."
+            description="HSynex was founded to eliminate the gap between high-level business vision and tactical software engineering."
             centered={true}
           />
-          <p className="about-hero-lead">
-            Hsynex is a group of forward-looking engineers, architects, and strategists. We build systems that help organizations run more efficiently, automate workloads, and protect business data.
-          </p>
         </div>
       </section>
 
-      {/* Story Section */}
-      <section className="story-section">
-        <div className="container story-container">
-          <div className="story-visual">
-            <div className="story-glow-mesh"></div>
-            <div className="story-visual-card">
-              <div className="visual-card-title">Hsynex Ecosystem</div>
-              <div className="visual-card-item">
-                <span className="dot dot-green"></span>
-                <span>Active Infrastructure Monitoring</span>
-              </div>
-              <div className="visual-card-item">
-                <span className="dot dot-green"></span>
-                <span>Cloud Deployment Pipeline: Green</span>
-              </div>
-              <div className="visual-card-item">
-                <span className="dot dot-green"></span>
-                <span>SOC2 Compliance Audit: Passed</span>
-              </div>
-            </div>
-          </div>
-          <div className="story-content">
-            <h2>Our Origin & Evolution</h2>
-            <p>
-              Founded with the goal of bridging the gap between high-level IT strategy and actual engineering execution, Hsynex began as a small boutique consulting agency. Over the years, we have grown into a full-scale IT solutions provider.
+      {/* Mission & Approach Narrative */}
+      <section className="about-narrative-section">
+        <div className="container narrative-grid">
+          <div className="narrative-col scroll-animate">
+            <span className="subtitle-badge">
+              <span className="subtitle-dot"></span>
+              THE HSYNEX STANDARD
+            </span>
+            <h2 className="narrative-heading">
+              Software engineered with precision, not templates.
+            </h2>
+            <p className="narrative-p">
+              Too many businesses get stuck with cookie-cutter WordPress themes, disjointed no-code tools that break at scale, or oversized agencies that charge six figures for slow progress.
             </p>
-            <p>
-              We believe that software shouldn't just run; it should scale, adapt, and remain resilient in the face of cybersecurity threats. Today, we work with both scaling startups and established enterprises to achieve operational excellence in the cloud and custom software engineering.
+            <p className="narrative-p">
+              HSynex operates differently. We operate as a high-velocity product engineering studio. We combine technical rigor with deep empathy for business operations, building bespoke platforms that streamline day-to-day work and scale effortlessly.
             </p>
-            <div className="story-milestones">
-              <div className="milestone-item">
-                <h4><StatsCounter end={12} suffix="+" /></h4>
-                <span>Years of Practice</span>
-              </div>
-              <div className="milestone-item">
-                <h4><StatsCounter end={250} suffix="+" /></h4>
-                <span>Successful Launches</span>
-              </div>
-            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Mission Vision Values */}
-      <section className="values-section">
-        <div className="container">
-          <SectionHeader
-            subtitle="OUR CORE DRIVERS"
-            title="The Values That Guide Our Code"
-            centered={true}
-          />
-          <div className="values-grid">
-            {coreValues.map((val, idx) => (
-              <div className="value-card" key={idx}>
-                <div className="value-icon-wrap">{val.icon}</div>
-                <h3>{val.title}</h3>
-                <p>{val.description}</p>
+          <div className="narrative-visual-col scroll-animate">
+            <div className="architecture-box">
+              <div className="arch-header">
+                <span className="arch-dot"></span>
+                <span>HSynex Engineering Principles</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section — Hidden for now
-      <section className="team-section">
-        <div className="container">
-          <SectionHeader
-            subtitle="THE SQUAD"
-            title="Meet Our Technology Leaders"
-            centered={true}
-          />
-          <div className="team-grid">
-            {teamMembers.map((member, idx) => (
-              <div className="team-card" key={idx}>
-                <div className="member-avatar">
-                  <span>{member.initials}</span>
+              <div className="arch-body">
+                <div className="arch-item">
+                  <span className="arch-check">✓</span>
+                  <div>
+                    <strong>Type-Safe & Modular Architecture</strong>
+                    <p>Maintainable codebases that grow with your team.</p>
+                  </div>
                 </div>
-                <h3>{member.name}</h3>
-                <span className="member-role">{member.role}</span>
-                <p className="member-bio">{member.bio}</p>
+                <div className="arch-item">
+                  <span className="arch-check">✓</span>
+                  <div>
+                    <strong>Sub-Second Response Targets</strong>
+                    <p>Optimized database indexes and edge-cached frontends.</p>
+                  </div>
+                </div>
+                <div className="arch-item">
+                  <span className="arch-check">✓</span>
+                  <div>
+                    <strong>Direct Principal Communication</strong>
+                    <p>Work directly with engineers and product architects.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Pillars */}
+      <section className="about-pillars-section">
+        <div className="container">
+          <SectionHeader
+            subtitle="HOW WE WORK"
+            title="Our Guiding Values"
+            centered={true}
+          />
+
+          <div className="pillars-cards-grid">
+            {corePillars.map((p, idx) => (
+              <div
+                key={p.title}
+                className="pillar-card card-glow-hover scroll-animate"
+                style={{ transitionDelay: `${idx * 0.1}s` }}
+              >
+                <div className="pillar-icon-box">{p.icon}</div>
+                <h3 className="pillar-card-title">{p.title}</h3>
+                <p className="pillar-card-desc">{p.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
-      */}
 
-      {/* About CTA */}
+      {/* CTA */}
       <section className="about-cta-section">
         <div className="container">
-          <div className="about-cta-card">
-            <h2>Partner With Elite Technology Architects</h2>
+          <div className="about-cta-container scroll-animate">
+            <h2>Ready to build something lasting?</h2>
             <p>
-              Ready to execute your cloud migration, build custom platforms, or conduct comprehensive audits? Reach out to Hsynex today.
+              Whether you need to architect a new commercial SaaS or modernize an outdated business system, let's talk.
             </p>
-            <Link to="/contact" className="btn btn-primary">
-              Work With Us
+            <Link to="/contact" className="btn btn-primary btn-lg">
+              Start the Conversation
             </Link>
           </div>
         </div>

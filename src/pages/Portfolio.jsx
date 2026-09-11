@@ -1,116 +1,120 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import SectionHeader from '../components/SectionHeader';
-import '../assets/css/Portfolio.css';
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import SectionHeader from "../components/SectionHeader";
+import "../assets/css/Portfolio.css";
+
+function useScrollReveal() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+    const elements = ref.current?.querySelectorAll(".scroll-animate");
+    elements?.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
 
 export default function Portfolio() {
-  const [activeFilter, setActiveFilter] = useState('All');
+  const pageRef = useScrollReveal();
+  const [activeFilter, setActiveFilter] = useState("All");
 
-  const categories = ['All', 'Website', 'CRM', 'Mobile', 'Cloud', 'AI'];
+  const categories = ["All", "SaaS & Products", "Business Platforms", "Web Apps", "Mobile"];
 
   const projects = [
     {
-      title: 'Luxury Real Estate Website',
-      category: 'Website',
-      stats: '3× Lead Conversion Increase',
-      tools: ['Next.js', 'Framer Motion', 'Contentful CMS'],
-      desc: 'Built a premium property listing website with virtual tours, dynamic search filters, and speed optimized property pages.',
-      initials: 'RE'
+      title: "HSynex Restaurant OS",
+      category: "SaaS & Products",
+      badge: "Commercial SaaS Product",
+      stats: "Real-time Order & Table Sync",
+      tools: ["React", "Node.js", "WebSockets", "PostgreSQL", "Tailwind"],
+      desc: "Complete restaurant operations platform featuring live kitchen order pipelines, visual table floor maps, digital QR code menus, dynamic pricing, and AI-assisted low-stock restocking.",
+      iconText: "RO",
     },
     {
-      title: 'SaaS Sales CRM Platform',
-      category: 'CRM',
-      stats: '60% Faster Deal Closing',
-      tools: ['React', 'Node.js', 'PostgreSQL', 'Chart.js'],
-      desc: 'Delivered a custom multi-tenant CRM with pipeline kanban boards, automated email sequences, and revenue dashboards.',
-      initials: 'SC'
+      title: "Custom CRM & Sales Pipeline Engine",
+      category: "Business Platforms",
+      badge: "Enterprise Business Platform",
+      stats: "65% Faster Lead Processing",
+      tools: ["React", "PostgreSQL", "Node.js", "Redis Queues"],
+      desc: "Multi-tenant CRM system with interactive Kanban deal pipelines, automated email sequence triggers, centralized team communications, and role-based staff permissions.",
+      iconText: "CR",
     },
     {
-      title: 'Healthcare Patient Mobile App',
-      category: 'Mobile',
-      stats: '4.8★ App Store Rating',
-      tools: ['React Native', 'Firebase', 'HL7 FHIR'],
-      desc: 'Designed a patient-facing mobile application for appointment booking, medical records access, and telemedicine video calls.',
-      initials: 'HM'
+      title: "Luxury Real Estate & Architectural Showcase",
+      category: "Web Apps",
+      badge: "High-Performance Web Platform",
+      stats: "99+ Performance & SEO Score",
+      tools: ["Next.js", "Headless CMS", "Edge CDN", "Framer Motion"],
+      desc: "Ultra-fast property discovery catalog featuring immersive virtual walkthroughs, dynamic geographic filters, responsive floor plans, and automated lead capture.",
+      iconText: "RE",
     },
     {
-      title: 'Global Cloud Migration',
-      category: 'Cloud',
-      stats: '45% Infra Saving',
-      tools: ['AWS', 'Terraform', 'Kubernetes'],
-      desc: 'Re-architected legacy datacenter systems into multi-region AWS cloud instances, implementing autoscaling rules and infrastructure as code.',
-      initials: 'GC'
+      title: "Healthcare Patient & Telehealth Portal",
+      category: "Mobile",
+      badge: "Cross-Platform Mobile App",
+      stats: "HIPAA Compliant Architecture",
+      tools: ["React Native", "WebRTC", "FastAPI", "Encrypted Storage"],
+      desc: "Patient-first mobile application facilitating direct telemedicine video consultations, instant clinic appointment booking, push reminders, and encrypted medical records.",
+      iconText: "HC",
     },
     {
-      title: 'Fintech Transaction Engine',
-      category: 'Web Apps',
-      stats: '15k transactions/sec',
-      tools: ['React', 'Node.js', 'PostgreSQL'],
-      desc: 'Engineered a highly resilient core ledger platform featuring double-entry verification checks and real-time dashboard notifications.',
-      initials: 'FT'
+      title: "IoT Fleet Telemetry & Logistics Suite",
+      category: "Business Platforms",
+      badge: "Operations Dashboard",
+      stats: "Real-Time Sensor Telemetry",
+      tools: ["React", "WebSockets", "TimescaleDB", "Node.js"],
+      desc: "Live monitoring console tracking freight geolocation, temperature sensor readings, door integrity, and automated route deviation alert systems across commercial fleets.",
+      iconText: "LT",
     },
     {
-      title: 'Predictive Medical Models',
-      category: 'AI',
-      stats: '94% Diagnostics Accuracy',
-      tools: ['Python', 'PyTorch', 'FastAPI'],
-      desc: 'Trained neural networks to parse medical imaging data and flag high-priority scan anomalies for clinical team review.',
-      initials: 'PM'
+      title: "Automated Invoicing & Financial Ledger",
+      category: "Web Apps",
+      badge: "Financial Technology Platform",
+      stats: "Sub-Second Multi-Currency Ledger",
+      tools: ["React", "Node.js", "PostgreSQL", "Stripe API"],
+      desc: "Core transactional platform featuring double-entry audit logs, automated GST/tax calculations, PDF invoice generation, and bank payout reconciliation webhooks.",
+      iconText: "FL",
     },
-    {
-      title: 'IoT Logistics Dashboard',
-      category: 'Web Apps',
-      stats: '100k Connected Sensors',
-      tools: ['React', 'Websockets', 'InfluxDB'],
-      desc: 'Designed a real-time tracking interface monitoring freight location, inside temperature, and lock status across active fleets.',
-      initials: 'IL'
-    },
-    {
-      title: 'Zero-Trust Security Platform',
-      category: 'Cloud',
-      stats: 'SOC2 Fast-Tracked',
-      tools: ['Azure Active Directory', 'Vault', 'Docker'],
-      desc: 'Hardened network endpoints and centralized credential storage across distributed endpoints, passing enterprise compliance audits.',
-      initials: 'ZT'
-    },
-    {
-      title: 'AI Product Recommender',
-      category: 'AI',
-      stats: '22% Sales Uplift',
-      tools: ['TensorFlow', 'Pinecone', 'Python'],
-      desc: 'Built a vectorized recommendation model matching user click histories with product embeddings to serve catalog items.',
-      initials: 'AR'
-    }
   ];
 
-  const filteredProjects = activeFilter === 'All'
-    ? projects
-    : projects.filter(p => p.category === activeFilter);
+  const filteredProjects =
+    activeFilter === "All"
+      ? projects
+      : projects.filter((p) => p.category === activeFilter);
 
   return (
-    <div className="portfolio-page">
+    <div className="portfolio-page-root" ref={pageRef}>
+      <div className="ambient-glow-top"></div>
+
       {/* Hero Header */}
-      <section className="portfolio-hero">
+      <section className="portfolio-hero-section">
         <div className="container">
           <SectionHeader
-            subtitle="CASE STUDIES"
-            title="Our Proven Track Record"
+            subtitle="SELECTED WORK & SYSTEMS"
+            title="Engineered for real-world impact."
+            description="Explore our flagship SaaS products, custom business platforms, and high-performance digital systems."
             centered={true}
           />
-          <p className="portfolio-hero-lead">
-            We deliver real results. Explore our case studies to see how we help clients reduce cloud costs, launch custom products, secure data, and automate operations.
-          </p>
         </div>
       </section>
 
       {/* Filter Tabs */}
       <section className="portfolio-filter-section">
         <div className="container">
-          <div className="filter-tabs">
+          <div className="filter-tabs-wrapper">
             {categories.map((cat) => (
               <button
                 key={cat}
-                className={`filter-tab ${activeFilter === cat ? 'active' : ''}`}
+                className={`filter-tab-btn ${activeFilter === cat ? "active" : ""}`}
                 onClick={() => setActiveFilter(cat)}
               >
                 {cat}
@@ -123,24 +127,40 @@ export default function Portfolio() {
       {/* Portfolio Grid */}
       <section className="portfolio-grid-section">
         <div className="container">
-          <div className="portfolio-grid">
+          <div className="portfolio-items-grid">
             {filteredProjects.map((project, index) => (
-              <div className="project-card" key={index}>
-                <div className="project-preview">
-                  <div className="preview-avatar">
-                    <span>{project.initials}</span>
+              <div
+                className="portfolio-project-card card-glow-hover scroll-animate"
+                key={project.title}
+                style={{ transitionDelay: `${(index % 2) * 0.1}s` }}
+              >
+                <div className="portfolio-card-top">
+                  <div className="project-initial-badge">{project.iconText}</div>
+                  <div className="project-card-meta">
+                    <span className="project-type-tag">{project.badge}</span>
+                    <span className="project-metric-stat">{project.stats}</span>
                   </div>
-                  <span className="project-category-badge">{project.category}</span>
                 </div>
-                <div className="project-info">
-                  <span className="project-metric">{project.stats}</span>
-                  <h3>{project.title}</h3>
-                  <p>{project.desc}</p>
-                  <div className="project-tools">
-                    {project.tools.map((t, idx) => (
-                      <span key={idx} className="tool-tag">{t}</span>
-                    ))}
-                  </div>
+
+                <h3 className="project-card-heading">{project.title}</h3>
+                <p className="project-card-narrative">{project.desc}</p>
+
+                <div className="project-toolset">
+                  {project.tools.map((t) => (
+                    <span key={t} className="tool-chip">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="portfolio-card-action">
+                  <Link to="/contact" className="project-action-link">
+                    <span>Inquire About Similar Build</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -148,51 +168,47 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Spotlight Case Study */}
-      <section className="spotlight-section">
+      {/* Flagship Spotlight Case Study */}
+      <section className="case-spotlight-section">
         <div className="container">
-          <div className="spotlight-card">
-            <div className="spotlight-header">
-              <span className="subtitle-badge">PROJECT SPOTLIGHT</span>
-              <h2>SaaS Sales CRM Platform</h2>
+          <div className="spotlight-container-box scroll-animate">
+            <div className="spotlight-badge-row">
+              <span className="subtitle-badge">PRODUCT SPOTLIGHT</span>
+              <span className="status-live-pill">● In Active Development</span>
             </div>
-            <div className="spotlight-body">
-              <div className="spotlight-col">
-                <h3>The Challenge</h3>
-                <p>
-                  A scaling sales team struggled with customer follow-ups, messy spreadsheets, and disjointed team communication, leading to a loss in closing velocity.
-                </p>
-              </div>
-              <div className="spotlight-col">
-                <h3>Our Solution</h3>
-                <p>
-                  We engineered a bespoke CRM using React and Node.js featuring kanban deal pipelines, automated email sequences, and centralized communication history.
-                </p>
-              </div>
-              <div className="spotlight-col spotlight-results">
-                <h3>The Results</h3>
-                <ul>
-                  <li><strong>60%</strong> Faster Deal Closing</li>
-                  <li><strong>100%</strong> Automated Lead Capture</li>
-                  <li><strong>2.5x</strong> Sales Pipeline Output</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Portfolio CTA */}
-      <section className="portfolio-cta-section">
-        <div className="container">
-          <div className="portfolio-cta-box">
-            <h2>Ready to Write Your Success Story?</h2>
-            <p>
-              Let's build a software solution that saves engineering hours, optimizes cloud costs, and drives real metrics for your brand.
+            <h2 className="spotlight-title">HSynex Restaurant: Reimagining Hospitality Tech</h2>
+            <p className="spotlight-lead">
+              Traditional restaurant systems are clunky, slow, and split across 4 different subscription tools.
+              We built HSynex Restaurant as a unified OS connecting POS, Kitchen, Tables, and Inventory in real time.
             </p>
-            <Link to="/contact" className="btn btn-primary">
-              Launch Your Project
-            </Link>
+
+            <div className="spotlight-pillars-grid">
+              <div className="pillar-item">
+                <h4>01. Sub-Second Synchronization</h4>
+                <p>
+                  Orders taken at tables or scanned via QR appear on the kitchen display in under 300ms using WebSocket event streaming.
+                </p>
+              </div>
+              <div className="pillar-item">
+                <h4>02. Interactive Floor Maps</h4>
+                <p>
+                  Visual dining room maps provide instant visibility over table occupancy, party sizes, active checks, and reservation turn times.
+                </p>
+              </div>
+              <div className="pillar-item">
+                <h4>03. Automated Restock Triggers</h4>
+                <p>
+                  Ingredient consumption is tracked per dish in real-time, notifying managers and drafting supplier purchase orders before critical items run out.
+                </p>
+              </div>
+            </div>
+
+            <div className="spotlight-cta-row">
+              <Link to="/contact" className="btn btn-primary btn-lg">
+                Schedule a Product Demo
+              </Link>
+            </div>
           </div>
         </div>
       </section>

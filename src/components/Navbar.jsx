@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import logoImg from "../assets/logo-transparent.png";
+import logoImg from "../assets/logo.png";
 import "../assets/css/Navbar.css";
 
 export default function Navbar() {
@@ -17,16 +17,16 @@ export default function Navbar() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on page change
+  // Close mobile drawer on route change
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [location]);
 
-  // Lock body scroll when mobile menu is open
+  // Prevent background scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.classList.add("menu-open");
@@ -37,74 +37,135 @@ export default function Navbar() {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Services", path: "/services" },
-    { name: "About Us", path: "/about" },
-    { name: "Portfolio", path: "/portfolio" },
-    { name: "Insights", path: "/blog" },
+    { name: "Solutions", path: "/services", hash: "#solutions" },
+    { name: "Products", path: "/#products", hash: "#products" },
+    { name: "Work", path: "/portfolio", hash: "#work" },
+    { name: "About", path: "/about", hash: "#about" },
+    { name: "Insights", path: "/blog", hash: "/blog" },
   ];
 
+  const handleNavClick = (link) => {
+    setMobileMenuOpen(false);
+    if (location.pathname === "/" && link.hash.startsWith("#")) {
+      const el = document.querySelector(link.hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
-    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+    <header className={`navbar-header ${scrolled ? "is-scrolled" : ""}`}>
       <div className="navbar-container container">
-        <Link to="/" className="navbar-logo">
-          <img src={logoImg} alt="Hsynex Logo" className="logo-img" />
+        {/* Brand Logo */}
+        <Link to="/" className="navbar-brand">
+          <img src={logoImg} alt="HSynex" className="brand-logo-img" />
+          {/* <div className="brand-text-wrap">
+            <span className="brand-name">HSynex</span>
+            <span className="brand-tagline">TECHNOLOGIES</span>
+          </div> */}
         </Link>
 
-        {/* Desktop Menu */}
-        <div className="nav-menu">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path}
-              className={`nav-item ${location.pathname === link.path ? "active" : ""}`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
+        {/* Desktop Navigation Links */}
+        <nav className="navbar-nav-desktop" aria-label="Main Navigation">
+          {navLinks.map((link) => {
+            const isCurrent =
+              location.pathname === link.path ||
+              (location.pathname === "/" && location.hash === link.hash);
 
-        <div className="nav-actions">
-          <Link to="/contact" className="btn btn-primary nav-cta">
-            Get Consultation
+            return (
+              <Link
+                key={link.name}
+                to={link.path}
+                className={`nav-link-item ${isCurrent ? "active" : ""}`}
+                onClick={() => handleNavClick(link)}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Action Button & Hamburger */}
+        <div className="navbar-actions">
+          <Link to="/contact" className="btn btn-primary btn-sm nav-cta-btn">
+            <span>Let's Talk</span>
+            <svg
+              className="btn-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
           </Link>
 
-          {/* Hamburger Menu Icon */}
           <button
-            className={`hamburger ${mobileMenuOpen ? "open" : ""}`}
+            className={`mobile-toggle-btn ${mobileMenuOpen ? "active" : ""}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle navigation"
+            aria-label="Toggle Navigation Menu"
           >
-            <span></span>
-            <span></span>
-            <span></span>
+            <span className="hamburger-bar"></span>
+            <span className="hamburger-bar"></span>
+            <span className="hamburger-bar"></span>
           </button>
         </div>
       </div>
 
-      {/* Mobile Backdrop Overlay */}
+      {/* Mobile Backdrop */}
       <div
-        className={`mobile-nav-backdrop ${mobileMenuOpen ? "open" : ""}`}
+        className={`mobile-menu-backdrop ${mobileMenuOpen ? "visible" : ""}`}
         onClick={() => setMobileMenuOpen(false)}
       />
 
       {/* Mobile Drawer */}
-      <div className={`mobile-nav ${mobileMenuOpen ? "open" : ""}`}>
-        <div className="mobile-nav-links">
+      <div className={`mobile-nav-drawer ${mobileMenuOpen ? "open" : ""}`}>
+        <div className="mobile-drawer-header">
+          <div className="mobile-brand">
+            <img src={logoImg} alt="HSynex" className="brand-logo-img-small" />
+            <span className="brand-name">HSynex</span>
+          </div>
+          <button
+            className="mobile-close-btn"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            &times;
+          </button>
+        </div>
+
+        <div className="mobile-links-list">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.path}
-              className={`mobile-nav-item ${location.pathname === link.path ? "active" : ""}`}
+              className="mobile-link-item"
+              onClick={() => handleNavClick(link)}
             >
-              {link.name}
+              <span>{link.name}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
             </Link>
           ))}
-          <Link to="/contact" className="btn btn-primary mobile-cta">
-            Get Consultation
-          </Link>
+          <div className="mobile-drawer-cta">
+            <Link
+              to="/contact"
+              className="btn btn-primary btn-lg full-width"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Let's Talk
+            </Link>
+          </div>
         </div>
       </div>
-    </nav>
+    </header>
   );
 }

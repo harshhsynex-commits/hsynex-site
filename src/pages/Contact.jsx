@@ -1,40 +1,41 @@
-import React, { useState } from 'react';
-import SectionHeader from '../components/SectionHeader';
-import '../assets/css/Contact.css';
+import React, { useState } from "react";
+import SectionHeader from "../components/SectionHeader";
+import "../assets/css/Contact.css";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service: 'Software Development',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    projectType: "SaaS Product Engineering",
+    budget: "$5k - $15k",
+    message: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
 
   const faqs = [
     {
-      q: 'Do you work with early-stage startups or only enterprise teams?',
-      a: 'We work with both! We configure flexible squads tailored to startup MVPs and seed expansions, as well as high-compliance frameworks supporting multi-regional enterprise projects.'
+      q: "How quickly can we start discovery and development?",
+      a: "We typically begin technical discovery within 2-3 business days of alignment. We establish direct communication channels (Slack/Discord/Teams) and sprint roadmaps immediately.",
     },
     {
-      q: 'What is your standard pricing structure and model?',
-      a: 'We offer fixed-scope pricing for well-defined projects, and monthly/weekly dedicated resource models (Time & Materials) for active agile product development cycles.'
+      q: "What is HSynex's engagement model?",
+      a: "We offer both milestone-based fixed scope pricing for clearly scoped systems, as well as dedicated monthly product squad sprints for evolving SaaS products and continuous features.",
     },
     {
-      q: 'How do you handle intellectual property (IP) and data privacy?',
-      a: 'All intellectual property belongs to you upon invoice settlement. We sign comprehensive NDAs before code handovers and maintain strict compliance with SOC2, GDPR, and HIPAA rules.'
+      q: "Who owns the intellectual property (IP) and source code?",
+      a: "You retain 100% ownership of all source code, database architectures, assets, and intellectual property. Code is pushed directly to your private GitHub/GitLab repositories.",
     },
     {
-      q: 'Do you provide post-launch support and hosting administration?',
-      a: 'Yes! We offer managed SLA support, 24/7 endpoint monitoring, cloud cost tuning, and continuous deployment patches post-launch.'
-    }
+      q: "Do you provide post-launch support and infrastructure management?",
+      a: "Yes. We provide continuous maintenance SLAs, cloud monitoring, performance audits, security patching, and scaling assistance post-launch.",
+    },
   ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
@@ -44,115 +45,137 @@ export default function Contact() {
     }
   };
 
-  const toggleFaq = (index) => {
-    setOpenFaq(openFaq === index ? null : index);
+  const toggleFaq = (idx) => {
+    setOpenFaq(openFaq === idx ? null : idx);
   };
 
   return (
-    <div className="contact-page">
+    <div className="contact-page-root">
+      <div className="ambient-glow-top"></div>
+
       {/* Hero Header */}
-      <section className="contact-hero">
+      <section className="contact-hero-section">
         <div className="container">
           <SectionHeader
             subtitle="GET IN TOUCH"
-            title="Let's Start the Conversation"
+            title="Let's build something smarter."
+            description="Have a software project, SaaS idea, or operational bottleneck? Reach out directly to discuss architecture, scope, and timelines."
             centered={true}
           />
-          <p className="contact-hero-lead">
-            Have a project in mind, need technical assistance, or want to audit your current cloud infrastructure? We are ready to help.
-          </p>
         </div>
       </section>
 
-      {/* Main Contact Grid */}
-      <section className="contact-form-section">
-        <div className="container contact-grid">
-          {/* Info Side */}
-          <div className="contact-info-side">
-            <h2>Contact Information</h2>
-            <p className="info-lead">
-              Drop us a line directly or schedule an architecture review with our principal staff.
+      {/* Main Grid */}
+      <section className="contact-main-grid-section">
+        <div className="container contact-layout-grid">
+          {/* Direct Info Side */}
+          <div className="contact-info-panel">
+            <span className="subtitle-badge">
+              <span className="subtitle-dot"></span>
+              DIRECT REACH
+            </span>
+            <h2 className="info-panel-title">Speak directly with our team</h2>
+            <p className="info-panel-desc">
+              We don't route you through layers of non-technical sales reps. Your inquiry is reviewed directly by product engineers.
             </p>
 
-            <div className="info-cards">
-              <a href="mailto:harsh.hsynex@gmail.com" className="info-card">
-                <div className="info-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <div className="direct-contact-cards">
+              <a href="mailto:harsh.hsynex@gmail.com" className="direct-card">
+                <div className="direct-icon-circle">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
                 </div>
                 <div>
-                  <h4>Email Us</h4>
-                  <p>harsh.hsynex@gmail.com</p>
+                  <span className="direct-label">Email Us</span>
+                  <span className="direct-val">harsh.hsynex@gmail.com</span>
                 </div>
               </a>
 
-              <a href="tel:+916353142650" className="info-card">
-                <div className="info-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <a href="tel:+916353142650" className="direct-card">
+                <div className="direct-icon-circle">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
                 </div>
                 <div>
-                  <h4>Call Us</h4>
-                  <p>+91 6353142650</p>
+                  <span className="direct-label">Call / WhatsApp</span>
+                  <span className="direct-val">+91 6353142650</span>
                 </div>
               </a>
 
-              <div className="info-card">
-                <div className="info-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <div className="direct-card">
+                <div className="direct-icon-circle">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
                 </div>
                 <div>
-                  <h4>Location</h4>
-                  <p>Ahmedabad, India</p>
+                  <span className="direct-label">Location</span>
+                  <span className="direct-val">Ahmedabad, India</span>
                 </div>
               </div>
+            </div>
+
+            <div className="response-time-box">
+              <span className="response-dot"></span>
+              <span>Average response time: &lt; 12 hours</span>
             </div>
           </div>
 
           {/* Form Side */}
-          <div className="contact-form-side">
+          <div className="contact-form-panel">
             {submitted ? (
-              <div className="form-success-box animate-fade-in">
-                <div className="success-icon-wrap">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <h2>Message Received!</h2>
-                <p>
-                  Thank you for contacting Hsynex. A principal tech architect will review your message and reply via email within 1 business day.
+              <div className="form-success-card">
+                <div className="success-icon-badge">✓</div>
+                <h3 className="success-heading">Message Dispatched</h3>
+                <p className="success-text">
+                  Thank you for contacting HSynex. We will review your project scope and follow up with you directly within 12 hours.
                 </p>
-                <button className="btn btn-secondary" onClick={() => setSubmitted(false)}>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setSubmitted(false)}
+                >
                   Send Another Message
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="contact-form">
-                <div className="form-group">
-                  <label htmlFor="name">Full Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Enter your name"
-                    required
-                  />
-                </div>
+              <form onSubmit={handleSubmit} className="project-inquiry-form">
+                <h3 className="form-box-title">Start a Project Inquiry</h3>
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="email">Email Address</label>
+                <div className="form-group-stack">
+                  <div className="form-field">
+                    <label htmlFor="name">Your Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Alex Mercer"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-field">
+                    <label htmlFor="email">Work Email</label>
                     <input
                       type="email"
                       id="email"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="you@company.com"
+                      placeholder="alex@company.com"
                       required
                     />
                   </div>
+                </div>
 
-                  <div className="form-group">
-                    <label htmlFor="phone">Phone (Optional)</label>
+                <div className="form-group-stack">
+                  <div className="form-field">
+                    <label htmlFor="phone">Phone / WhatsApp (Optional)</label>
                     <input
                       type="tel"
                       id="phone"
@@ -162,41 +185,44 @@ export default function Contact() {
                       placeholder="+1 (555) 000-0000"
                     />
                   </div>
+
+                  <div className="form-field">
+                    <label htmlFor="projectType">Project Type</label>
+                    <select
+                      id="projectType"
+                      name="projectType"
+                      value={formData.projectType}
+                      onChange={handleInputChange}
+                    >
+                      <option value="SaaS Product Engineering">SaaS Product Engineering</option>
+                      <option value="Business Platform / ERP">Business Platform / ERP</option>
+                      <option value="Web & Mobile App">Web & Mobile Application</option>
+                      <option value="CMS & Automation">Custom CMS & Automation</option>
+                      <option value="HSynex Restaurant Demo">HSynex Restaurant Demo</option>
+                      <option value="Technical Consultation">Technical Consultation</option>
+                    </select>
+                  </div>
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="service">Service Needed</label>
-                  <select
-                    id="service"
-                    name="service"
-                    value={formData.service}
-                    onChange={handleInputChange}
-                  >
-                    <option value="Software Development">Custom Software Development</option>
-                    <option value="Cloud Solutions">Cloud Strategy & Infrastructure</option>
-                    <option value="Cybersecurity">Cybersecurity & Compliance</option>
-                    <option value="Data & AI">Data Science & AI/ML Models</option>
-                    <option value="IT Infrastructure">IT Infrastructure Management</option>
-                    <option value="Digital Consulting">Strategic Digital Audits</option>
-                    <option value="Other">Other / Multiple</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="message">Project Scope or Message</label>
+                <div className="form-field">
+                  <label htmlFor="message">Project Overview & Goals</label>
                   <textarea
                     id="message"
                     name="message"
-                    rows="5"
+                    rows="4"
                     value={formData.message}
                     onChange={handleInputChange}
-                    placeholder="Briefly describe your development scope or tech support needs..."
+                    placeholder="Tell us what you're building, key challenges, or timeline targets..."
                     required
                   ></textarea>
                 </div>
 
-                <button type="submit" className="btn btn-primary form-submit-btn">
-                  Send Message
+                <button type="submit" className="btn btn-primary btn-lg full-width-btn">
+                  <span>Send Project Details</span>
+                  <svg className="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
                 </button>
               </form>
             )}
@@ -205,29 +231,30 @@ export default function Contact() {
       </section>
 
       {/* FAQ Section */}
-      <section className="faq-section">
-        <div className="container faq-container">
+      <section className="contact-faq-section">
+        <div className="container">
           <SectionHeader
-            subtitle="QUESTIONS?"
-            title="Frequently Asked Questions"
+            subtitle="FREQUENTLY ASKED"
+            title="Common Questions"
             centered={true}
           />
-          <div className="faq-list">
+
+          <div className="faqs-accordion-list">
             {faqs.map((faq, idx) => (
               <div
-                key={idx}
-                className={`faq-item ${openFaq === idx ? 'open' : ''}`}
+                key={faq.q}
+                className={`faq-accordion-box ${openFaq === idx ? "open" : ""}`}
                 onClick={() => toggleFaq(idx)}
               >
-                <div className="faq-question">
-                  <h3>{faq.q}</h3>
-                  <span className="faq-toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                  </span>
+                <div className="faq-question-row">
+                  <h4>{faq.q}</h4>
+                  <span className="faq-plus-icon">{openFaq === idx ? "−" : "+"}</span>
                 </div>
-                <div className="faq-answer">
-                  <p>{faq.a}</p>
-                </div>
+                {openFaq === idx && (
+                  <div className="faq-answer-body">
+                    <p>{faq.a}</p>
+                  </div>
+                )}
               </div>
             ))}
           </div>

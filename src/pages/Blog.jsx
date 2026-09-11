@@ -1,161 +1,181 @@
-import React, { useState } from 'react';
-import SectionHeader from '../components/SectionHeader';
-import '../assets/css/Blog.css';
+import React, { useState, useEffect, useRef } from "react";
+import SectionHeader from "../components/SectionHeader";
+import "../assets/css/Blog.css";
+
+function useScrollReveal() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+    const elements = ref.current?.querySelectorAll(".scroll-animate");
+    elements?.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
 
 export default function Blog() {
-  const [email, setEmail] = useState('');
+  const pageRef = useScrollReveal();
+  const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
-  const blogPosts = [
+  const posts = [
     {
-      title: 'Zero-Trust Networks: Hardening Enterprise Infrastructure',
-      category: 'Security',
-      date: 'June 25, 2026',
-      readTime: '6 min read',
-      excerpt: 'Traditional perimeter defense is no longer enough. Explore practical tactics for rolling out zero-trust access controls, identity verification, and micro-segmentation.',
-      initials: 'ZT'
+      title: "Architecting Real-Time WebSocket Pipelines for POS & Hospitality Systems",
+      category: "Architecture",
+      date: "2026 Edition",
+      readTime: "7 min read",
+      excerpt:
+        "How we achieved sub-300ms ticket synchronization across kitchen displays and POS terminals in HSynex Restaurant using event clustering and lightweight heartbeat protocols.",
+      tag: "Deep Dive",
     },
     {
-      title: 'Optimizing PostgreSQL Database Performance Under High Loads',
-      category: 'Development',
-      date: 'June 18, 2026',
-      readTime: '8 min read',
-      excerpt: 'Slow database queries bottleneck application speed. Learn how indexing, connection pooling, and query rewriting can decrease server latencies.',
-      initials: 'PG'
+      title: "Multi-Tenant Database Strategies: Schema-per-Tenant vs Shared Tables with RLS",
+      category: "SaaS Engineering",
+      date: "2026 Edition",
+      readTime: "9 min read",
+      excerpt:
+        "Evaluating database isolation models for scaling B2B SaaS platforms. Comparing PostgreSQL Row-Level Security (RLS) with dedicated tenant schemas for compliance and throughput.",
+      tag: "Database",
     },
     {
-      title: 'Why AI Integrations Require Solid Data Governance Policies',
-      category: 'AI & Data',
-      date: 'June 11, 2026',
-      readTime: '5 min read',
-      excerpt: 'Deploying Large Language Models exposes brands to information leaks. We outline data governance guidelines to safeguard customer datasets.',
-      initials: 'DG'
+      title: "Why Modern Businesses are Abandoning Fragmented No-Code Tools for Bespoke Systems",
+      category: "Product Strategy",
+      date: "2026 Edition",
+      readTime: "5 min read",
+      excerpt:
+        "When your Zapier workflows and Airtables start failing under daily transaction volume, custom software platforms offer 10x durability at a fraction of cumulative subscription costs.",
+      tag: "Strategy",
     },
     {
-      title: 'Top 5 Cloud Cost Leaks and How to Patch Them Safely',
-      category: 'Cloud',
-      date: 'June 04, 2026',
-      readTime: '7 min read',
-      excerpt: 'Orphaned block stores and oversized compute nodes drain budgets. Audit your cloud infrastructure with simple checks to eliminate waste.',
-      initials: 'CC'
+      title: "Optimizing PostgreSQL Query Performance: Index Types, EXPLAIN ANALYZE & Cache Buffers",
+      category: "Performance",
+      date: "2026 Edition",
+      readTime: "8 min read",
+      excerpt:
+        "Practical strategies for eliminating slow database locks, tuning connection pools, and leveraging composite indexes to keep API latencies under 50ms.",
+      tag: "Backend",
     },
-    {
-      title: 'Migrating Monolith Codebases to Scalable Microservices',
-      category: 'Development',
-      date: 'May 28, 2026',
-      readTime: '9 min read',
-      excerpt: 'Deconstructing a database monolith can disrupt uptime. Learn how to map boundaries and migrate operations using the Strangler Fig pattern.',
-      initials: 'MS'
-    }
   ];
 
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (email) {
       setSubscribed(true);
-      setEmail('');
+      setEmail("");
     }
   };
 
   return (
-    <div className="blog-page">
+    <div className="blog-page-root" ref={pageRef}>
+      <div className="ambient-glow-top"></div>
+
       {/* Hero Header */}
-      <section className="blog-hero">
+      <section className="blog-hero-section">
         <div className="container">
           <SectionHeader
-            subtitle="HSYNEX INSIGHTS"
-            title="Technology News & Strategic Advice"
+            subtitle="ENGINEERING INSIGHTS"
+            title="Technical writeups from the build trenches."
+            description="Practical architectural blueprints, SaaS lessons, and software performance deep-dives authored by HSynex engineers."
             centered={true}
           />
-          <p className="blog-hero-lead">
-            Stay ahead of the curve. Read technical analyses, cloud tutorials, and engineering write-ups authored by our principal consultants and senior architects.
-          </p>
         </div>
       </section>
 
       {/* Featured Article */}
-      <section className="featured-blog-section">
+      <section className="featured-article-section">
         <div className="container">
-          <div className="featured-blog-card">
-            <div className="featured-blog-visual">
-              <div className="featured-visual-avatar">SV</div>
-              <span className="featured-category-badge">Cloud</span>
+          <div className="featured-post-card card-glow-hover scroll-animate">
+            <div className="featured-top-badge">
+              <span className="badge">Featured Deep-Dive</span>
+              <span className="post-read-time">7 min read</span>
             </div>
-            <div className="featured-blog-content">
-              <div className="featured-meta">
-                <span>June 30, 2026</span>
-                <span className="meta-separator">&bull;</span>
-                <span>8 min read</span>
-              </div>
-              <h2>The Future of Serverless Architecture: Scaling DevOps in 2026</h2>
-              <p>
-                Serverless compute has evolved far beyond basic triggers. This guide covers edge-functions, database connection limits, startup latency cold starts, and cost management setups for engineering directors.
-              </p>
-              <a href="#featured" className="read-more-link">
-                Read Full Article
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </a>
+
+            <h2 className="featured-post-title">
+              Architecting Real-Time WebSocket Pipelines for POS & Hospitality Systems
+            </h2>
+            <p className="featured-post-excerpt">
+              How we achieved sub-300ms ticket synchronization across kitchen displays, mobile waiter tablets, and POS terminals in HSynex Restaurant using distributed Redis event brokers and lightweight state sync.
+            </p>
+
+            <div className="featured-card-footer">
+              <span className="post-meta-cat">Architecture & Systems Engineering</span>
+              <span className="post-read-link">
+                <span>Read Full Blueprint</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Blog Grid */}
+      {/* Articles Grid */}
       <section className="blog-grid-section">
         <div className="container">
-          <div className="blog-grid">
-            {blogPosts.map((post, index) => (
-              <div className="blog-card" key={index}>
-                <div className="blog-preview-top">
-                  <div className="blog-avatar">
-                    <span>{post.initials}</span>
-                  </div>
-                  <span className="blog-category-tag">{post.category}</span>
+          <div className="articles-cards-grid">
+            {posts.map((post, idx) => (
+              <article
+                key={post.title}
+                className="article-card card-glow-hover scroll-animate"
+                style={{ transitionDelay: `${idx * 0.1}s` }}
+              >
+                <div className="article-card-header">
+                  <span className="article-category">{post.category}</span>
+                  <span className="article-read-meta">{post.readTime}</span>
                 </div>
-                <div className="blog-card-content">
-                  <div className="blog-card-meta">
-                    <span>{post.date}</span>
-                    <span className="meta-separator">&bull;</span>
-                    <span>{post.readTime}</span>
-                  </div>
-                  <h3>{post.title}</h3>
-                  <p>{post.excerpt}</p>
-                  <a href={`#post-${index}`} className="blog-card-link">
-                    Read Post
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
+
+                <h3 className="article-title">{post.title}</h3>
+                <p className="article-excerpt">{post.excerpt}</p>
+
+                <div className="article-footer-row">
+                  <span className="read-more-btn">
+                    <span>Read Article</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </span>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Newsletter Signup */}
-      <section className="newsletter-section">
+      {/* Newsletter / RSS Box */}
+      <section className="blog-newsletter-section">
         <div className="container">
-          <div className="newsletter-card">
-            <h2>Subscribe to Technical Insights</h2>
-            <p>
-              Get hand-picked articles on cloud strategy, software architecture, security advisories, and AI tools delivered directly to your inbox. No spam, ever.
-            </p>
+          <div className="newsletter-box-card scroll-animate">
+            <span className="subtitle-badge">TECHNICAL DISPATCHES</span>
+            <h2>Get our quarterly architecture briefs</h2>
+            <p>No sales spam. Just high-signal engineering breakdowns, SaaS architecture notes, and case study retrospectives.</p>
+
             {subscribed ? (
-              <div className="subscribe-success animate-fade-in">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-teal)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Thank you! You have successfully subscribed to Hsynex Insights.</span>
+              <div className="subscribe-success-alert">
+                <span>✓ You have been added to HSynex Insights.</span>
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="newsletter-form">
+              <form onSubmit={handleSubscribe} className="newsletter-form-row">
                 <input
                   type="email"
-                  placeholder="Enter your work email address"
-                  className="newsletter-input"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your engineering email..."
                   required
                 />
-                <button type="submit" className="btn btn-primary newsletter-btn">
-                  Subscribe Now
+                <button type="submit" className="btn btn-primary">
+                  Subscribe
                 </button>
               </form>
             )}
