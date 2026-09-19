@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import SectionHeader from "../components/SectionHeader";
 import "../assets/css/Services.css";
@@ -131,7 +131,7 @@ export default function Services() {
 
       {/* Capabilities List */}
       <section className="services-grid-section">
-        <div className="container">
+        <div className="container-wide">
           <div className="services-list-grid">
             {serviceCategories.map((service, idx) => (
               <div
@@ -185,7 +185,7 @@ export default function Services() {
 
       {/* Bottom CTA Banner */}
       <section className="services-bottom-cta">
-        <div className="container">
+        <div className="container-wide">
           <div className="services-cta-box scroll-animate">
             <h2>Ready to plan your technical architecture?</h2>
             <p>

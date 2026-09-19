@@ -5,7 +5,7 @@
 .product-mockup-wrapper {
   position: relative;
   width: 100%;
-  max-width: 1060px;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
@@ -690,5 +690,23 @@
   }
   .floor-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .browser-chrome {
+    padding: 0.5rem 0.85rem;
+  }
+  .browser-url-bar {
+    display: none;
+  }
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  .floor-grid {
+    grid-template-columns: 1fr;
+  }
+  .mockup-main {
+    padding: 1rem 0.85rem;
   }
 }

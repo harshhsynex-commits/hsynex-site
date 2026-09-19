@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import SectionHeader from "../components/SectionHeader";
 import "../assets/css/Blog.css";
 
@@ -92,7 +92,7 @@ export default function Blog() {
 
       {/* Featured Article */}
       <section className="featured-article-section">
-        <div className="container">
+        <div className="container-wide">
           <div className="featured-post-card card-glow-hover scroll-animate">
             <div className="featured-top-badge">
               <span className="badge">Featured Deep-Dive</span>
@@ -122,7 +122,7 @@ export default function Blog() {
 
       {/* Articles Grid */}
       <section className="blog-grid-section">
-        <div className="container">
+        <div className="container-wide">
           <div className="articles-cards-grid">
             {posts.map((post, idx) => (
               <article
@@ -140,7 +140,7 @@ export default function Blog() {
 
                 <div className="article-footer-row">
                   <span className="read-more-btn">
-                    <span>Read Article</span>
+                    <span>Read Architecture Note</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <line x1="5" y1="12" x2="19" y2="12"></line>
                       <polyline points="12 5 19 12 12 19"></polyline>
@@ -155,7 +155,7 @@ export default function Blog() {
 
       {/* Newsletter / RSS Box */}
       <section className="blog-newsletter-section">
-        <div className="container">
+        <div className="container-wide">
           <div className="newsletter-box-card scroll-animate">
             <span className="subtitle-badge">TECHNICAL DISPATCHES</span>
             <h2>Get our quarterly architecture briefs</h2>

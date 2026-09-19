@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import SectionHeader from "../components/SectionHeader";
 import "../assets/css/Portfolio.css";
@@ -126,7 +126,7 @@ export default function Portfolio() {
 
       {/* Portfolio Grid */}
       <section className="portfolio-grid-section">
-        <div className="container">
+        <div className="container-wide">
           <div className="portfolio-items-grid">
             {filteredProjects.map((project, index) => (
               <div
@@ -170,7 +170,7 @@ export default function Portfolio() {
 
       {/* Flagship Spotlight Case Study */}
       <section className="case-spotlight-section">
-        <div className="container">
+        <div className="container-wide">
           <div className="spotlight-container-box scroll-animate">
             <div className="spotlight-badge-row">
               <span className="subtitle-badge">PRODUCT SPOTLIGHT</span>

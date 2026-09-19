@@ -1,547 +1,431 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import ProductMockup from "../components/UI/ProductMockup";
-import SectionHeader from "../components/SectionHeader";
+import {
+  HSButton,
+  SectionTitle,
+  ServiceRows,
+  Timeline,
+  TechStrip,
+  CTASection,
+  VisualPreview,
+  useSEO,
+} from "../components/UI/EditorialUI";
 import "../assets/css/Home.css";
 
-/* IntersectionObserver hook for smooth scroll animations */
-function useScrollReveal() {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-    );
-
-    const elements = ref.current?.querySelectorAll(".scroll-animate");
-    elements?.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
-  return ref;
-}
-
 export default function Home() {
-  const pageRef = useScrollReveal();
-
-  const capabilities = [
-    {
-      number: "01",
-      title: "Business Platforms",
-      description:
-        "Custom systems that simplify operations, eliminate fragmented spreadsheets, and bring business workflows into one unified place.",
-      tags: ["Custom ERP", "Internal Tools", "Operations Portals", "Database Architecture"],
-      highlight: "Unified Operations",
-    },
-    {
-      number: "02",
-      title: "SaaS Products",
-      description:
-        "Scalable multi-tenant SaaS platforms designed around real business problems, built with robust subscription mechanics and high availability.",
-      tags: ["Multi-Tenant", "API First", "Billing & Subscriptions", "Cloud Native"],
-      highlight: "Scalable Architecture",
-    },
-    {
-      number: "03",
-      title: "Web & Mobile",
-      description:
-        "Modern responsive websites and mobile applications focused on fluid usability, high performance, and conversion-optimized interfaces.",
-      tags: ["React / Next.js", "React Native", "Progressive Web Apps", "Performance Audited"],
-      highlight: "High Performance",
-    },
-    {
-      number: "04",
-      title: "CMS & Automation",
-      description:
-        "Custom headless CMS configurations and workflow automations that eliminate manual bottlenecks and accelerate team execution.",
-      tags: ["Headless CMS", "Webhook Pipelines", "Task Automation", "Custom Integrations"],
-      highlight: "Zero Manual Waste",
-    },
-  ];
-
-  const selectedProjects = [
-    {
-      title: "HSynex Restaurant OS",
-      category: "Flagship SaaS Product",
-      description:
-        "Comprehensive restaurant management operating system combining real-time POS, live kitchen pipelines, floor table maps, digital QR menus, and smart automated inventory restocking.",
-      stack: ["React", "Node.js", "WebSockets", "PostgreSQL", "Cloud Infra"],
-      tag: "Live Product",
-      metric: "Sub-second order sync",
-      link: "#products",
-    },
-    {
-      title: "Enterprise Operations & CRM Suite",
-      category: "Business Platform",
-      description:
-        "Bespoke multi-tier pipeline management engine with automated deal routing, customer history timelines, team dispatch boards, and automated PDF invoicing.",
-      stack: ["React", "PostgreSQL", "Tailored API", "Worker Queues"],
-      tag: "Client Solution",
-      metric: "65% workflow speedup",
-      link: "/portfolio",
-    },
-    {
-      title: "Real Estate & Architecture Platform",
-      category: "Web Application",
-      description:
-        "Ultra-fast property discovery and luxury portfolio platform featuring virtual walkthroughs, dynamic search filters, and speed-optimized property catalogs.",
-      stack: ["Next.js", "Headless CMS", "Edge CDN", "Interactive UI"],
-      tag: "Web Platform",
-      metric: "99+ Lighthouse Score",
-      link: "/portfolio",
-    },
-    {
-      title: "Healthcare Patient & Telehealth App",
-      category: "Mobile & Web",
-      description:
-        "HIPAA-compliant patient portal for instant appointment booking, secure medical chart access, automated reminder alerts, and direct video consultations.",
-      stack: ["React Native", "WebRTC", "Encrypted Storage", "FastAPI"],
-      tag: "Mobile App",
-      metric: "Zero-friction booking",
-      link: "/portfolio",
-    },
-  ];
-
-  const principles = [
-    {
-      number: "01",
-      title: "Business First",
-      description:
-        "We understand the operational bottleneck, customer journey, and revenue model before writing a single line of code.",
-    },
-    {
-      number: "02",
-      title: "Product Thinking",
-      description:
-        "We engineer solutions with modular architecture and clean APIs so they can gracefully evolve as your business scales.",
-    },
-    {
-      number: "03",
-      title: "Modern Technology",
-      description:
-        "We leverage modern web standards, resilient cloud architectures, and snappy interfaces that users genuinely enjoy using.",
-    },
-    {
-      number: "04",
-      title: "Long-Term Mindset",
-      description:
-        "We build for tomorrow's growth with clean code, thorough documentation, and future-proof design systems.",
-    },
-  ];
-
-  const processSteps = [
-    {
-      step: "01",
-      name: "Discover",
-      text: "Deep-dive analysis into business workflows, user pain points, and technical objectives.",
-    },
-    {
-      step: "02",
-      name: "Design",
-      text: "Craft intuitive UX flows, polished interfaces, and clean interactive product architecture.",
-    },
-    {
-      step: "03",
-      name: "Build",
-      text: "Engineer scalable frontend and backend systems with high test coverage and strict standards.",
-    },
-    {
-      step: "04",
-      name: "Launch",
-      text: "Deploy to production cloud infrastructure with automated CI/CD and zero-downtime rollouts.",
-    },
-    {
-      step: "05",
-      name: "Scale",
-      text: "Monitor metrics, optimize throughput, and continuously evolve the product roadmap.",
-    },
-  ];
+  useSEO(
+    "Build Digital. Build Smarter.",
+    "HSynex designs and builds modern web, mobile, SaaS and business software solutions designed to help businesses work smarter."
+  );
 
   return (
-    <div className="home-page-root" ref={pageRef}>
-      {/* Ambient background glows */}
-      <div className="ambient-glow-top"></div>
-      <div className="ambient-glow-bottom"></div>
-
-      {/* =================================================================
-          1. HERO SECTION
-          ================================================================= */}
-      <section className="hero-section">
-        <div className="container hero-container">
-          <div className="hero-content">
-            <div className="hero-badge-wrap">
-              <span className="badge">
-                <span className="badge-dot"></span>
-                Digital Products & SaaS Engineering
-              </span>
-            </div>
-
-            <h1 className="hero-headline">
-              BUILD DIGITAL.<br />
-              <span className="gradient-text">BUILD SMARTER.</span>
-            </h1>
-
-            <p className="hero-subtext">
-              HSynex designs and builds modern web, mobile and SaaS solutions for
-              businesses ready to move beyond outdated systems.
-            </p>
-
-            <div className="hero-actions">
-              <Link to="/contact" className="btn btn-primary btn-lg">
-                <span>Start a Project</span>
-                <svg
-                  className="btn-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </Link>
-              <a href="#work" className="btn btn-secondary btn-lg">
-                Explore Our Work
-              </a>
-            </div>
-
-            {/* Quick Hero Highlights */}
-            <div className="hero-highlights">
-              <div className="highlight-item">
-                <span className="highlight-dot"></span>
-                <span>Product-Driven Architecture</span>
+    <div className="home-editorial-root">
+      {/* 1. HERO SECTION - PROFESSIONAL COMPANY STRUCTURE */}
+      <section className="relative border-b border-slate-800/80 home-hero-section">
+        <div className="technical-grid pointer-events-none" style={{ position: "absolute", inset: 0, opacity: 0.45 }} />
+        
+        <div className="container hero-company-container">
+          <div className="hero-company-top-grid">
+            {/* Left Headline & Action Column */}
+            <div className="hero-company-headline-col">
+              <div className="hero-badge-wrap">
+                <span className="eyebrow">
+                  HSYNEX TECHNOLOGIES &bull; SOFTWARE ARCHITECTURE &amp; SYSTEMS
+                </span>
               </div>
-              <div className="highlight-item">
-                <span className="highlight-dot"></span>
-                <span>High-Speed Engineering</span>
-              </div>
-              <div className="highlight-item">
-                <span className="highlight-dot"></span>
-                <span>Zero Outdated Tech</span>
-              </div>
-            </div>
-          </div>
+              
+              <h1 className="hero-editorial-title">
+                BUILD DIGITAL.<br />
+                <span style={{ color: "var(--hsynex-cyan)" }}>BUILD SMARTER.</span>
+              </h1>
 
-          {/* Hero Visual Mockup Showcase */}
-          <div className="hero-visual-showcase">
-            <ProductMockup variant="hero" />
-          </div>
-        </div>
-      </section>
-
-      {/* =================================================================
-          2. TRUST / CAPABILITY CREDIBILITY STRIP
-          ================================================================= */}
-      <section className="capability-strip-section scroll-animate">
-        <div className="container">
-          <div className="capability-strip-card">
-            <span className="strip-label">CORE DISCIPLINES</span>
-            <div className="strip-divider"></div>
-            <div className="strip-items-grid">
-              <span className="strip-item">DIGITAL PRODUCTS</span>
-              <span className="strip-dot">•</span>
-              <span className="strip-item">WEB PLATFORMS</span>
-              <span className="strip-dot">•</span>
-              <span className="strip-item">SAAS ARCHITECTURES</span>
-              <span className="strip-dot">•</span>
-              <span className="strip-item">MOBILE APPS</span>
-              <span className="strip-dot">•</span>
-              <span className="strip-item">CMS & AUTOMATION</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =================================================================
-          3. WHAT WE BUILD (BENTO GRID)
-          ================================================================= */}
-      <section className="section-padding what-we-build-section" id="solutions">
-        <div className="container">
-          <SectionHeader
-            subtitle="WHAT WE BUILD"
-            title="Digital products built for real-world businesses."
-            description="We engineer bespoke systems engineered around your exact workflow, operational scale, and customer expectations."
-            centered={true}
-          />
-
-          <div className="bento-services-grid">
-            {capabilities.map((item, index) => (
-              <div
-                key={item.number}
-                className={`bento-card bento-card-${index + 1} scroll-animate`}
-                style={{ transitionDelay: `${index * 0.1}s` }}
-              >
-                <div className="bento-top">
-                  <span className="bento-num">{item.number}</span>
-                  <span className="bento-highlight-badge">{item.highlight}</span>
-                </div>
-
-                <div className="bento-body">
-                  <h3 className="bento-title">{item.title}</h3>
-                  <p className="bento-desc">{item.description}</p>
-                </div>
-
-                <div className="bento-tags">
-                  {item.tags.map((tag) => (
-                    <span key={tag} className="tag">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="bento-footer">
-                  <Link to="/services" className="bento-link">
-                    <span>Explore Capability</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                      <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* =================================================================
-          4. PRODUCTS SECTION (FLAGSHIP: HSYNEX RESTAURANT)
-          ================================================================= */}
-      <section className="section-padding products-showcase-section" id="products">
-        <div className="container">
-          <div className="products-intro-wrap scroll-animate">
-            <span className="subtitle-badge">
-              <span className="subtitle-dot"></span>
-              FLAGSHIP SOFTWARE PRODUCT
-            </span>
-            <h2 className="section-title-heading">Products we're building.</h2>
-            <p className="section-desc-text">
-              We don't just build client solutions — we design and ship our own high-scale
-              commercial software products.
-            </p>
-          </div>
-
-          <div className="flagship-product-card card-glow-hover scroll-animate">
-            <div className="product-card-top-row">
-              <div className="product-brand-tag">
-                <span className="product-badge-flag">HSynex Product</span>
-                <h3 className="product-title">HSynex Restaurant</h3>
-                <p className="product-subtitle">
-                  Smart restaurant management for modern operations.
-                </p>
-              </div>
-
-              <div className="product-top-actions">
-                <Link to="/contact" className="btn btn-primary">
-                  <span>Request Product Demo</span>
-                  <svg className="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </Link>
-              </div>
-            </div>
-
-            {/* Feature Pills */}
-            <div className="product-feature-pills">
-              <span className="feat-pill">● Live POS & Orders</span>
-              <span className="feat-pill">● Floor Table Maps</span>
-              <span className="feat-pill">● Dynamic QR Menus</span>
-              <span className="feat-pill">● Kitchen Pipeline</span>
-              <span className="feat-pill">● AI Low-Stock Restocking</span>
-              <span className="feat-pill">● Multi-Branch Analytics</span>
-            </div>
-
-            {/* Interactive Live Mockup Embed */}
-            <div className="product-interactive-wrapper">
-              <ProductMockup variant="showcase" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =================================================================
-          5. SELECTED WORK
-          ================================================================= */}
-      <section className="section-padding selected-work-section" id="work">
-        <div className="container">
-          <div className="section-header-flex scroll-animate">
-            <div>
-              <span className="subtitle-badge">
-                <span className="subtitle-dot"></span>
-                PORTFOLIO & CASE STUDIES
-              </span>
-              <h2 className="section-title-heading">Selected Work</h2>
-              <p className="section-desc-text">
-                Real digital systems, SaaS platforms, and performance web apps built by HSynex.
-              </p>
-            </div>
-            <Link to="/portfolio" className="btn btn-secondary">
-              View All Projects
-            </Link>
-          </div>
-
-          <div className="projects-grid">
-            {selectedProjects.map((project, idx) => (
-              <div
-                key={project.title}
-                className="project-display-card card-glow-hover scroll-animate"
-                style={{ transitionDelay: `${idx * 0.1}s` }}
-              >
-                <div className="project-card-header">
-                  <div className="project-tag-wrap">
-                    <span className="badge badge-blue">{project.tag}</span>
-                    <span className="project-metric-pill">{project.metric}</span>
-                  </div>
-                  <h3 className="project-name">{project.title}</h3>
-                  <span className="project-cat-sub">{project.category}</span>
-                </div>
-
-                <p className="project-desc-body">{project.description}</p>
-
-                <div className="project-stack-wrap">
-                  {project.stack.map((tech) => (
-                    <span key={tech} className="tech-badge">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="project-action-row">
-                  {project.link.startsWith("#") ? (
-                    <a href={project.link} className="project-view-btn">
-                      <span>Explore Showcase</span>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                      </svg>
-                    </a>
-                  ) : (
-                    <Link to={project.link} className="project-view-btn">
-                      <span>View Case Study</span>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                      </svg>
-                    </Link>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* =================================================================
-          6. WHY HSYNEX (OUR APPROACH)
-          ================================================================= */}
-      <section className="section-padding why-hsynex-section" id="about">
-        <div className="container">
-          <SectionHeader
-            subtitle="OUR APPROACH"
-            title="Built around the problem, not just the technology."
-            description="We reject bloated code, generic templates, and vanity features. Every decision is grounded in real operational value."
-            centered={true}
-          />
-
-          <div className="principles-grid">
-            {principles.map((p, idx) => (
-              <div
-                key={p.number}
-                className="principle-card scroll-animate"
-                style={{ transitionDelay: `${idx * 0.1}s` }}
-              >
-                <div className="principle-num-circle">{p.number}</div>
-                <h3 className="principle-title">{p.title}</h3>
-                <p className="principle-desc">{p.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* =================================================================
-          7. PROCESS (HORIZONTAL TIMELINE)
-          ================================================================= */}
-      <section className="section-padding process-section-root">
-        <div className="container">
-          <SectionHeader
-            subtitle="DELIVERY TIMELINE"
-            title="From idea to impact."
-            description="A structured, transparent roadmap from initial architectural discovery to long-term scaling."
-            centered={true}
-          />
-
-          <div className="process-flow-container">
-            <div className="process-flow-track"></div>
-            <div className="process-steps-grid">
-              {processSteps.map((step, idx) => (
-                <div
-                  key={step.step}
-                  className="process-flow-step scroll-animate"
-                  style={{ transitionDelay: `${idx * 0.12}s` }}
-                >
-                  <div className="step-node-bubble">
-                    <span className="step-idx">{step.step}</span>
-                  </div>
-                  <h4 className="step-heading">{step.name}</h4>
-                  <p className="step-text">{step.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =================================================================
-          8. FINAL CTA BANNER
-          ================================================================= */}
-      <section className="section-padding cta-section-root">
-        <div className="container">
-          <div className="cta-impact-box scroll-animate">
-            <div className="cta-glow-effect"></div>
-            
-            <div className="cta-content-wrapper">
-              <span className="subtitle-badge">
-                <span className="subtitle-dot"></span>
-                READY TO ELEVATE
-              </span>
-              <h2 className="cta-main-title">
-                Have a business problem worth solving?<br />
-                <span className="gradient-text">Let's build something smarter.</span>
-              </h2>
-              <p className="cta-desc">
-                Whether you need a bespoke internal business platform, a scalable SaaS product,
-                or a modern web application, HSynex turns ambitious requirements into robust reality.
+              <p className="hero-editorial-desc">
+                We engineer bespoke web applications, mobile platforms, and business systems designed around real-world workflows, operational scale, and high-velocity teams.
               </p>
 
-              <div className="cta-buttons-row">
-                <Link to="/contact" className="btn btn-primary btn-lg">
-                  <span>Start a Project</span>
-                  <svg className="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </Link>
-                <Link to="/contact" className="btn btn-secondary btn-lg">
-                  Talk to HSynex
-                </Link>
+              <div className="hero-editorial-actions">
+                <HSButton to="/contact">START A PROJECT</HSButton>
+                <HSButton to="/solutions" secondary>EXPLORE CAPABILITIES</HSButton>
               </div>
+            </div>
+
+            {/* Right Company Overview & Architecture Console */}
+            <div className="hero-company-console-col">
+              <div className="company-console-card">
+                <div className="console-card-header">
+                  <div className="console-header-left">
+                    <span className="console-dot-green"></span>
+                    <span className="console-title">COMPANY ARCHITECTURE // 2026</span>
+                  </div>
+                  <span className="console-status-badge">ACTIVE ENGAGEMENTS</span>
+                </div>
+
+                <div className="console-specs-list">
+                  <div className="console-spec-row">
+                    <div className="spec-row-top">
+                      <span className="spec-id">01</span>
+                      <span className="spec-name">WEB &amp; CLOUD SYSTEMS</span>
+                      <span className="spec-pill">High Velocity</span>
+                    </div>
+                    <p className="spec-detail">
+                      React &bull; Next.js &bull; Node &bull; Edge Caching &bull; Sub-second Portals
+                    </p>
+                  </div>
+
+                  <div className="console-spec-row">
+                    <div className="spec-row-top">
+                      <span className="spec-id">02</span>
+                      <span className="spec-name">MOBILE APPLICATIONS</span>
+                      <span className="spec-pill">Cross-Platform</span>
+                    </div>
+                    <p className="spec-detail">
+                      React Native &bull; iOS &bull; Android &bull; Offline Sync &bull; Workforce Tools
+                    </p>
+                  </div>
+
+                  <div className="console-spec-row">
+                    <div className="spec-row-top">
+                      <span className="spec-id">03</span>
+                      <span className="spec-name">BESPOKE BUSINESS SOFTWARE</span>
+                      <span className="spec-pill">Operations</span>
+                    </div>
+                    <p className="spec-detail">
+                      PostgreSQL &bull; Redis Queues &bull; Custom ERPs &bull; Automated Pipelines
+                    </p>
+                  </div>
+
+                  <div className="console-spec-row">
+                    <div className="spec-row-top">
+                      <span className="spec-id">04</span>
+                      <span className="spec-name">COMMERCIAL SAAS</span>
+                      <span className="spec-pill">Multi-Tenant</span>
+                    </div>
+                    <p className="spec-detail">
+                      Stripe Billing &bull; Telemetry &bull; RBAC &bull; High-Scale Cloud Native
+                    </p>
+                  </div>
+                </div>
+
+                <div className="console-footer-bar">
+                  <div className="console-stat">
+                    <span className="stat-label">CODE CUSTODY</span>
+                    <span className="stat-val">100% Client IP</span>
+                  </div>
+                  <div className="console-stat-sep"></div>
+                  <div className="console-stat">
+                    <span className="stat-label">ENGAGEMENT</span>
+                    <span className="stat-val">Direct Principal</span>
+                  </div>
+                  <div className="console-stat-sep"></div>
+                  <div className="console-stat">
+                    <span className="stat-label">STANDARD</span>
+                    <span className="stat-val">Zero-Bloat</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Professional Company Capability Matrix */}
+          <div className="hero-structure-grid">
+            <div className="structure-card">
+              <div className="structure-card-top">
+                <span className="structure-card-num">01</span>
+                <span className="structure-tag">WEB PLATFORMS</span>
+              </div>
+              <h3 className="structure-card-title">Modern Web Applications</h3>
+              <p className="structure-card-desc">
+                High-performance customer portals, interactive dashboards, and responsive web platforms built for speed.
+              </p>
+            </div>
+
+            <div className="structure-card">
+              <div className="structure-card-top">
+                <span className="structure-card-num">02</span>
+                <span className="structure-tag">MOBILE SYSTEMS</span>
+              </div>
+              <h3 className="structure-card-title">Mobile Applications</h3>
+              <p className="structure-card-desc">
+                Cross-platform iOS and Android products designed with native fluidity for customers and teams in motion.
+              </p>
+            </div>
+
+            <div className="structure-card">
+              <div className="structure-card-top">
+                <span className="structure-card-num">03</span>
+                <span className="structure-tag">BUSINESS SOFTWARE</span>
+              </div>
+              <h3 className="structure-card-title">Bespoke Operations Suites</h3>
+              <p className="structure-card-desc">
+                Purpose-built internal tools, automated order workflows, and unified databases that eliminate manual bottlenecks.
+              </p>
+            </div>
+
+            <div className="structure-card">
+              <div className="structure-card-top">
+                <span className="structure-card-num">04</span>
+                <span className="structure-tag">SAAS ARCHITECTURE</span>
+              </div>
+              <h3 className="structure-card-title">SaaS Product Engineering</h3>
+              <p className="structure-card-desc">
+                Multi-tenant cloud architectures, billing subscription mechanics, and reliable infrastructure engineered for scale.
+              </p>
+            </div>
+          </div>
+
+          {/* Enterprise Engineering Trust Indicators */}
+          <div className="hero-trust-bar">
+            <div className="trust-item">
+              <span className="trust-dot">&bull;</span>
+              <span>100% Client Code &amp; IP Ownership</span>
+            </div>
+            <div className="trust-item">
+              <span className="trust-dot">&bull;</span>
+              <span>Direct Principal Engineer Collaboration</span>
+            </div>
+            <div className="trust-item">
+              <span className="trust-dot">&bull;</span>
+              <span>Sub-Second Latency Architecture</span>
+            </div>
+            <div className="trust-item">
+              <span className="trust-dot">&bull;</span>
+              <span>Zero Legacy Template Bloat</span>
             </div>
           </div>
         </div>
       </section>
+
+      {/* 2. CORE PHILOSOPHY STATEMENT */}
+      <section className="container statement-section">
+        <div className="statement-grid">
+          <h2 className="statement-heading">
+            WE DON'T JUST BUILD WEBSITES.<br />
+            <span style={{ color: "var(--hsynex-muted-dark)" }}>WE BUILD SYSTEMS BUSINESSES RUN ON.</span>
+          </h2>
+          <p className="statement-desc">
+            From customer-facing websites to internal business platforms, HSynex turns real business problems into practical digital products.
+          </p>
+        </div>
+      </section>
+
+      {/* 3. CAPABILITY MAP (SOLUTIONS) */}
+      <section id="solutions" className="editorial-dark-section">
+        <div className="container" style={{ padding: "clamp(5rem, 8vw, 7.5rem) var(--container-padding)" }}>
+          <SectionTitle
+            eyebrow="CAPABILITY MAP / 06"
+            title="WHAT WE BUILD"
+            text="Explore the six core digital disciplines we engineer for modern businesses."
+          />
+          <ServiceRows />
+        </div>
+      </section>
+
+      {/* 4. FEATURED PRODUCT (HSYNEX RESTAURANT) */}
+      <section id="products" className="container" style={{ padding: "clamp(5rem, 9vw, 8.5rem) var(--container-padding)" }}>
+        <SectionTitle
+          eyebrow="FEATURED PRODUCT / 01"
+          title={
+            <>
+              A PRODUCT<br />
+              <span style={{ color: "var(--hsynex-cyan)" }}>WE'RE BUILDING.</span>
+            </>
+          }
+          text="A modern restaurant management platform designed to bring orders, tables, menu management, inventory and business operations into one connected system."
+        />
+
+        <div style={{ marginTop: "2.5rem" }}>
+          <ProductMockup variant="showcase" />
+        </div>
+
+        <div className="product-footer-row">
+          <span style={{ fontWeight: 600, color: "#fff", fontSize: "1rem" }}>
+            HSynex Restaurant
+          </span>
+          <Link
+            to="/products/restaurant"
+            style={{
+              fontSize: "11px",
+              fontWeight: 700,
+              letterSpacing: "0.15em",
+              color: "var(--hsynex-cyan)",
+              textTransform: "uppercase",
+            }}
+          >
+            EXPLORE PRODUCT &rarr;
+          </Link>
+        </div>
+      </section>
+
+      {/* 5. THE METHOD (PROCESS TIMELINE) */}
+      <section className="editorial-dark-section">
+        <div className="container" style={{ padding: "clamp(5rem, 8vw, 7.5rem) var(--container-padding)" }}>
+          <SectionTitle
+            eyebrow="THE METHOD / 05"
+            title={
+              <>
+                FROM BUSINESS PROBLEM<br />
+                <span style={{ color: "var(--hsynex-muted-dark)" }}>TO DIGITAL PRODUCT.</span>
+              </>
+            }
+          />
+          <Timeline />
+        </div>
+      </section>
+
+      {/* 6. TESTIMONIALS & CLIENT TRUST */}
+      <section id="testimonials" className="container" style={{ padding: "clamp(5rem, 9vw, 8.5rem) var(--container-padding)" }}>
+        <SectionTitle
+          eyebrow="CLIENT VOICES &amp; TRUST"
+          title={
+            <>
+              WHAT BUSINESS LEADERS<br />
+              <span style={{ color: "var(--hsynex-cyan)" }}>SAY ABOUT HSYNEX.</span>
+            </>
+          }
+          text="Direct operational feedback from founders, CTOs, and operations leaders who rely on HSynex engineering."
+        />
+
+        <div className="testimonials-grid">
+          <div className="testimonial-card preview-panel">
+            <div className="testimonial-stars-row">
+              <span className="stars-icons">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span className="stars-label">5.0 / 5.0</span>
+            </div>
+            <p className="testimonial-quote">
+              &ldquo;HSynex replaced our tangled spreadsheets with an operations platform that felt native to our team on day one. Our order turnaround went from 48 hours to sub-2 hours.&rdquo;
+            </p>
+            <div className="testimonial-author-box">
+              <div className="author-avatar-badge">DR</div>
+              <div className="author-meta">
+                <h4 className="author-name">David Ross</h4>
+                <p className="author-role">VP of Operations &bull; Nexus Logistics</p>
+                <span className="author-verify-tag">&#10003; Bespoke Business Platform</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="testimonial-card preview-panel">
+            <div className="testimonial-stars-row">
+              <span className="stars-icons">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span className="stars-label">5.0 / 5.0</span>
+            </div>
+            <p className="testimonial-quote">
+              &ldquo;Finding an engineering studio that writes clean, zero-bloat code without trying to lock you into proprietary stacks is rare. 100% repository handover and sub-second API speeds.&rdquo;
+            </p>
+            <div className="testimonial-author-box">
+              <div className="author-avatar-badge">EV</div>
+              <div className="author-meta">
+                <h4 className="author-name">Elena Vance</h4>
+                <p className="author-role">Co-Founder &amp; CTO &bull; PulseMetrics SaaS</p>
+                <span className="author-verify-tag">&#10003; High-Scale SaaS Build</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="testimonial-card preview-panel">
+            <div className="testimonial-stars-row">
+              <span className="stars-icons">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span className="stars-label">5.0 / 5.0</span>
+            </div>
+            <p className="testimonial-quote">
+              &ldquo;Their team operates like true product co-founders. They asked the hard architectural questions early and delivered our cross-platform mobile system ahead of our investor demo.&rdquo;
+            </p>
+            <div className="testimonial-author-box">
+              <div className="author-avatar-badge">MS</div>
+              <div className="author-meta">
+                <h4 className="author-name">Marcus Sterling</h4>
+                <p className="author-role">Head of Product &bull; Apex Commercial Group</p>
+                <span className="author-verify-tag">&#10003; Cross-Platform Mobile System</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Credibility Summary Trust Bar */}
+        <div className="testimonials-trust-metrics">
+          <div className="trust-metric-cell">
+            <span className="metric-big">5.0</span>
+            <span className="metric-sub">Average Engineering Rating</span>
+          </div>
+          <div className="metric-sep"></div>
+          <div className="trust-metric-cell">
+            <span className="metric-big">100%</span>
+            <span className="metric-sub">Client IP &amp; Code Ownership</span>
+          </div>
+          <div className="metric-sep"></div>
+          <div className="trust-metric-cell">
+            <span className="metric-big">&lt; 300ms</span>
+            <span className="metric-sub">Target Sync Latency</span>
+          </div>
+          <div className="metric-sep"></div>
+          <div className="trust-metric-cell">
+            <span className="metric-big">0%</span>
+            <span className="metric-sub">Proprietary Lock-in</span>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. OUR PRINCIPLES */}
+      <section className="editorial-dark-section">
+        <div className="container" style={{ padding: "clamp(5rem, 8vw, 7.5rem) var(--container-padding)" }}>
+          <SectionTitle
+            eyebrow="OUR PRINCIPLES"
+            title={
+              <>
+                BUILT FOR BUSINESSES<br />
+                <span style={{ color: "var(--hsynex-muted-dark)" }}>THAT WANT TO WORK SMARTER.</span>
+              </>
+            }
+          />
+
+          <div className="principles-editorial-grid">
+            {[
+              ["01", "BUSINESS FIRST", "Technology should solve a real operational problem, not just look impressive."],
+              ["02", "PRODUCT THINKING", "We design around how people and teams actually work during a busy workday."],
+              ["03", "BUILT TO EVOLVE", "Systems should have clean modular architectures ready for the next growth stage."],
+              ["04", "CONNECTED EXPERIENCE", "The whole workflow across web, mobile, and backend should feel like one system."],
+            ].map(([num, title, desc]) => (
+              <div key={num} className="principle-editorial-item">
+                <span className="principle-num">{num}</span>
+                <div>
+                  <h3 className="principle-item-title">{title}</h3>
+                  <p className="principle-item-desc">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. TECH STRIP */}
+      <TechStrip />
+
+      {/* 9. ABOUT SUMMARY */}
+      <section id="about" className="about-summary-section">
+        <div className="container about-summary-grid">
+          <SectionTitle
+            eyebrow="ABOUT HSYNEX"
+            title={
+              <>
+                SOFTWARE BUILT<br />
+                <span style={{ color: "var(--hsynex-cyan)" }}>WITH PURPOSE.</span>
+              </>
+            }
+          />
+          <div className="about-summary-text">
+            <p>
+              HSynex is a software and technology studio focused on building practical digital products and business systems.
+            </p>
+            <p style={{ marginTop: "1.25rem" }}>
+              We combine product thinking, modern engineering and a clear understanding of business workflows to create software that is useful beyond launch day.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 10. HIGH-IMPACT CTA */}
+      <CTASection />
     </div>
   );
 }

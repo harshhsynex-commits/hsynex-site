@@ -1,61 +1,51 @@
 /* ==========================================================================
-   HSynex Design System - 2026 Dark-First Architecture
+   HSynex Design System - Editorial Dark-First Architecture
    ========================================================================== */
 
 :root {
   /* Brand Core Colors */
-  --hsynex-cyan: #00D1FF;
-  --hsynex-blue: #3B82F6;
   --hsynex-bg: #0B0F14;
   --hsynex-surface: #111827;
-  --hsynex-surface-light: #182234;
-  --hsynex-surface-hover: #1E293B;
-  --hsynex-surface-active: #243048;
+  --hsynex-surface-alt: #0D131B;
+  --hsynex-surface-dark: #0D151F;
+  --hsynex-surface-card: #111923;
   --hsynex-border: #1F2937;
-  --hsynex-border-light: #334155;
-  --hsynex-border-glow: rgba(0, 209, 255, 0.35);
+  --hsynex-border-subtle: rgba(255, 255, 255, 0.08);
+  --hsynex-border-accent: rgba(0, 209, 255, 0.4);
+  --hsynex-cyan: #00D1FF;
+  --hsynex-cyan-glow: rgba(0, 209, 255, 0.2);
+  --hsynex-blue: #3B82F6;
   --hsynex-muted: #94A3B8;
   --hsynex-muted-dark: #64748B;
   --hsynex-text: #F8FAFC;
   --hsynex-text-dim: #CBD5E1;
 
-  /* Accent Gradients & Glows */
+  /* Accent Gradients */
   --hsynex-gradient: linear-gradient(135deg, #00D1FF 0%, #3B82F6 100%);
-  --hsynex-gradient-subtle: linear-gradient(135deg, rgba(0, 209, 255, 0.12) 0%, rgba(59, 130, 246, 0.08) 100%);
-  --hsynex-gradient-border: linear-gradient(135deg, rgba(0, 209, 255, 0.4) 0%, rgba(59, 130, 246, 0.2) 100%);
-  --hsynex-cyan-glow: 0 0 35px rgba(0, 209, 255, 0.2);
-  --hsynex-blue-glow: 0 0 35px rgba(59, 130, 246, 0.2);
+  --hsynex-gradient-subtle: linear-gradient(135deg, rgba(0, 209, 255, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
 
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-glow: 0 0 30px rgba(0, 209, 255, 0.15);
-
-  /* Radius */
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-full: 9999px;
+  /* Radius (Crisp, thin aesthetic) */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
 
   /* Typography */
   --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  /* Layout */
-  --nav-height: 72px;
-  --max-width: 1240px;
-  --section-spacing: clamp(4.5rem, 8vw, 8rem);
+  /* Layout & Responsive Tokens */
+  --container-max-width: min(92vw, 1320px);
+  --container-max-width-wide: min(92vw, 1320px);
+  --container-max-width-narrow: min(90vw, 880px);
+  --container-padding: clamp(1.25rem, 3.5vw, 2.5rem);
   --transition-fast: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-spring: all 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+  --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ==========================================================================
-   Base Reset
+   Base Reset & Global Elements
    ========================================================================== */
 
 *, *::before, *::after {
@@ -66,11 +56,12 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--nav-height) + 20px);
+  scroll-padding-top: calc(var(--nav-height) + 16px);
   scrollbar-width: thin;
-  scrollbar-color: var(--hsynex-border-light) var(--hsynex-bg);
+  scrollbar-color: var(--hsynex-border) var(--hsynex-bg);
   background-color: var(--hsynex-bg);
   color: var(--hsynex-text);
+  color-scheme: dark;
 }
 
 body {
@@ -85,21 +76,9 @@ body {
   position: relative;
 }
 
-/* Subtle modern grid texture background */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: 
-    radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    radial-gradient(rgba(0, 209, 255, 0.015) 1px, transparent 1px);
-  background-size: 32px 32px;
-  background-position: 0 0, 16px 16px;
-  pointer-events: none;
-  z-index: 0;
+::selection {
+  background: var(--hsynex-cyan);
+  color: #071016;
 }
 
 #root {
@@ -108,6 +87,34 @@ body::before {
   min-height: 100vh;
   position: relative;
   z-index: 1;
+}
+
+/* Technical Grid Overlay */
+.technical-grid {
+  background-image: 
+    linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black 30%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 85%);
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .technical-grid {
+    background-size: 48px 48px;
+  }
+}
+
+/* Eyebrow badge / micro-header */
+.eyebrow {
+  color: var(--hsynex-cyan);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+  display: inline-block;
 }
 
 /* Ambient glow blobs */
@@ -201,16 +208,26 @@ a {
 
 .container {
   width: 100%;
-  max-width: var(--max-width);
+  max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 1.75rem;
+  padding: 0 var(--container-padding);
   position: relative;
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 0 1.25rem;
-  }
+.container-wide {
+  width: 100%;
+  max-width: var(--container-max-width-wide);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  position: relative;
+}
+
+.container-narrow {
+  width: 100%;
+  max-width: var(--container-max-width-narrow);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  position: relative;
 }
 
 /* ==========================================================================
@@ -285,6 +302,60 @@ a {
 .btn-ghost:hover {
   color: var(--hsynex-cyan);
   background: rgba(0, 209, 255, 0.05);
+}
+
+/* Editorial Action Buttons */
+.hs-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.35rem;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+  border-radius: var(--radius-xs);
+}
+
+.hs-btn-primary {
+  background-color: var(--hsynex-cyan);
+  color: #071016;
+  border: 1px solid var(--hsynex-cyan);
+}
+
+.hs-btn-primary:hover {
+  background-color: #38bdf8;
+  border-color: #38bdf8;
+  color: #000;
+  transform: translateY(-1px);
+}
+
+.hs-btn-secondary {
+  background-color: transparent;
+  color: var(--hsynex-text);
+  border: 1px solid #334155;
+}
+
+.hs-btn-secondary:hover {
+  border-color: var(--hsynex-cyan);
+  color: var(--hsynex-cyan);
+  transform: translateY(-1px);
+}
+
+.preview-panel {
+  transition: border-color 0.25s ease, transform 0.25s ease;
+  border: 1px solid var(--hsynex-border);
+  background: var(--hsynex-surface-card);
+}
+
+.preview-panel:hover {
+  border-color: rgba(0, 209, 255, 0.45);
+  transform: translateY(-2px);
 }
 
 /* Button Sizing */
@@ -479,4 +550,266 @@ a {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--hsynex-cyan);
+}
+
+/* ==========================================================================
+   Accessibility & Usability Utilities
+   ========================================================================== */
+
+:focus-visible {
+  outline: 2px solid var(--hsynex-cyan);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Ensure interactive elements have comfortable touch targets */
+@media (max-width: 768px) {
+  button, .btn, .nav-link-item, .mobile-link-item {
+    min-height: 44px;
+  }
+}
+
+/* ==========================================================================
+   Shared Editorial Page Layouts & Section Components
+   ========================================================================== */
+
+.page-hero-section {
+  position: relative;
+  border-bottom: 1px solid rgba(31, 41, 55, 0.8);
+  padding-top: clamp(7rem, 14vw, 9.5rem);
+  padding-bottom: clamp(4rem, 8vw, 6.5rem);
+}
+
+.page-hero-title {
+  max-width: 1000px;
+  font-size: clamp(3rem, 7.5vw, 6.5rem);
+  font-weight: 600;
+  line-height: 0.88;
+  letter-spacing: -0.07em;
+  color: #fff;
+  margin-top: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.page-hero-text {
+  max-width: 640px;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.75;
+  color: var(--hsynex-muted);
+  margin-bottom: 2.25rem;
+}
+
+/* Section Titles */
+.editorial-section-title {
+  margin-bottom: 3rem;
+}
+
+.editorial-section-title h2 {
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  color: #fff;
+  margin-top: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.editorial-section-title p {
+  max-width: 580px;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--hsynex-muted);
+}
+
+/* Tech Strip */
+.tech-strip-section {
+  border-top: 1px solid var(--hsynex-border);
+  border-bottom: 1px solid var(--hsynex-border);
+  padding: 3.5rem 0;
+}
+
+.tech-strip-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
+  margin-top: 2rem;
+}
+
+.tech-strip-item {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--hsynex-text-dim);
+  font-family: var(--font-heading);
+}
+
+/* Timeline (The Method) */
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.timeline-step {
+  position: relative;
+  border-left: 1px solid var(--hsynex-border);
+  padding: 1.5rem 1.25rem;
+  min-height: 160px;
+}
+
+.timeline-step-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--hsynex-cyan);
+}
+
+.timeline-step-title {
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.timeline-step-desc {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--hsynex-muted);
+}
+
+/* Editorial Service Rows */
+.service-row-item {
+  display: grid;
+  grid-template-columns: 80px 1fr 140px;
+  align-items: center;
+  gap: 1.5rem;
+  border-top: 1px solid var(--hsynex-border);
+  padding: 1.85rem 0;
+  text-decoration: none;
+  transition: border-color 0.2s ease;
+}
+
+.service-row-item:hover {
+  border-color: rgba(0, 209, 255, 0.5);
+}
+
+.service-row-item:hover .service-row-arrow {
+  color: var(--hsynex-cyan);
+  transform: translateX(4px);
+}
+
+.service-row-num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--hsynex-cyan);
+}
+
+.service-row-title {
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-bottom: 0.35rem;
+}
+
+.service-row-short {
+  font-size: 0.875rem;
+  color: var(--hsynex-muted);
+}
+
+.service-row-arrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--hsynex-muted-dark);
+  text-align: right;
+  transition: all 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .service-row-item {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .service-row-arrow {
+    text-align: left;
+  }
+}
+
+/* High-Impact Global CTA Section */
+.editorial-cta-section {
+  border-top: 1px solid rgba(0, 209, 255, 0.3);
+  background: var(--hsynex-surface-dark);
+  padding: clamp(5rem, 10vw, 8rem) 0;
+}
+
+.cta-flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .cta-flex-container {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+.cta-huge-title {
+  font-size: clamp(2.5rem, 6.5vw, 5.5rem);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  color: #fff;
+}
+
+/* Form Controls */
+.hs-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--hsynex-cyan);
+}
+
+.hs-input, .hs-select, .hs-textarea {
+  width: 100%;
+  background: var(--hsynex-bg);
+  border: 1px solid #334155;
+  padding: 0.85rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: #fff;
+  border-radius: var(--radius-xs);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.hs-input:focus, .hs-select:focus, .hs-textarea:focus {
+  border-color: var(--hsynex-cyan);
+  box-shadow: 0 0 0 1px var(--hsynex-cyan);
+}
+
+.hs-textarea {
+  min-height: 140px;
+  resize: vertical;
 }

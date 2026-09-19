@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../../assets/css/ProductMockup.css";
 
 export default function ProductMockup({ variant = "hero" }) {

@@ -1,4 +1,3 @@
-import React from 'react';
 import '../assets/css/SectionHeader.css';
 
 export default function SectionHeader({ title, subtitle, description, centered = true }) {

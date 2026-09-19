@@ -1,15 +1,18 @@
-import React, { useState } from "react";
-import SectionHeader from "../components/SectionHeader";
-import "../assets/css/Contact.css";
+import { useState } from "react";
+import { PageHero, SectionTitle, HSButton, useSEO } from "../components/UI/EditorialUI";
 
 export default function Contact() {
+  useSEO(
+    "Contact & Start a Project — HSynex",
+    "Have a software project, SaaS idea, or operational bottleneck? Reach out directly to discuss architecture, scope, and timelines."
+  );
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
-    projectType: "SaaS Product Engineering",
-    budget: "$5k - $15k",
-    message: "",
+    company: "",
+    projectType: "Web Application",
+    details: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
@@ -17,11 +20,11 @@ export default function Contact() {
   const faqs = [
     {
       q: "How quickly can we start discovery and development?",
-      a: "We typically begin technical discovery within 2-3 business days of alignment. We establish direct communication channels (Slack/Discord/Teams) and sprint roadmaps immediately.",
+      a: "We typically begin technical discovery within 2-3 business days of alignment. We establish direct communication channels and initial architectural scope immediately.",
     },
     {
       q: "What is HSynex's engagement model?",
-      a: "We offer both milestone-based fixed scope pricing for clearly scoped systems, as well as dedicated monthly product squad sprints for evolving SaaS products and continuous features.",
+      a: "We offer both milestone-based fixed scope pricing for clearly scoped systems, as well as dedicated monthly product squad sprints for evolving SaaS products.",
     },
     {
       q: "Who owns the intellectual property (IP) and source code?",
@@ -50,210 +53,213 @@ export default function Contact() {
   };
 
   return (
-    <div className="contact-page-root">
-      <div className="ambient-glow-top"></div>
+    <div className="contact-editorial-page">
+      <PageHero
+        eyebrow="CONTACT / START A CONVERSATION"
+        title={
+          <>
+            HAVE SOMETHING<br />
+            <span style={{ color: "var(--hsynex-cyan)" }}>WORTH BUILDING?</span>
+          </>
+        }
+        text="Tell us what you're trying to build, improve or automate. We'll help make the next step clearer."
+      />
 
-      {/* Hero Header */}
-      <section className="contact-hero-section">
-        <div className="container">
-          <SectionHeader
-            subtitle="GET IN TOUCH"
-            title="Let's build something smarter."
-            description="Have a software project, SaaS idea, or operational bottleneck? Reach out directly to discuss architecture, scope, and timelines."
-            centered={true}
-          />
-        </div>
-      </section>
-
-      {/* Main Grid */}
-      <section className="contact-main-grid-section">
-        <div className="container contact-layout-grid">
+      <section className="container" style={{ padding: "clamp(5rem, 8vw, 8rem) var(--container-padding)" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: "4rem",
+            alignItems: "flex-start",
+          }}
+        >
           {/* Direct Info Side */}
-          <div className="contact-info-panel">
-            <span className="subtitle-badge">
-              <span className="subtitle-dot"></span>
-              DIRECT REACH
-            </span>
-            <h2 className="info-panel-title">Speak directly with our team</h2>
-            <p className="info-panel-desc">
-              We don't route you through layers of non-technical sales reps. Your inquiry is reviewed directly by product engineers.
+          <div>
+            <p className="eyebrow">DIRECT CONTACT</p>
+            <p style={{ marginTop: "1.25rem", fontSize: "1.15rem", lineHeight: 1.8, color: "var(--hsynex-text-dim)" }}>
+              Start with the problem. We review your inquiry directly without routing you through sales reps.
             </p>
 
-            <div className="direct-contact-cards">
-              <a href="mailto:harsh.hsynex@gmail.com" className="direct-card">
-                <div className="direct-icon-circle">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                    <polyline points="22,6 12,13 2,6"></polyline>
-                  </svg>
-                </div>
-                <div>
-                  <span className="direct-label">Email Us</span>
-                  <span className="direct-val">harsh.hsynex@gmail.com</span>
-                </div>
-              </a>
-
-              <a href="tel:+916353142650" className="direct-card">
-                <div className="direct-icon-circle">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <span className="direct-label">Call / WhatsApp</span>
-                  <span className="direct-val">+91 6353142650</span>
-                </div>
-              </a>
-
-              <div className="direct-card">
-                <div className="direct-icon-circle">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                </div>
-                <div>
-                  <span className="direct-label">Location</span>
-                  <span className="direct-val">Ahmedabad, India</span>
-                </div>
+            <div style={{ marginTop: "2.5rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+              <div style={{ borderTop: "1px solid #334155", paddingTop: "1rem" }}>
+                <span className="eyebrow" style={{ color: "var(--hsynex-muted-dark)" }}>EMAIL</span>
+                <a
+                  href="mailto:harsh.hsynex@gmail.com"
+                  style={{ display: "block", marginTop: "0.35rem", fontSize: "1.1rem", fontWeight: 600, color: "#fff" }}
+                >
+                  harsh.hsynex@gmail.com &rarr;
+                </a>
               </div>
-            </div>
 
-            <div className="response-time-box">
-              <span className="response-dot"></span>
-              <span>Average response time: &lt; 12 hours</span>
+              <div style={{ borderTop: "1px solid #334155", paddingTop: "1rem" }}>
+                <span className="eyebrow" style={{ color: "var(--hsynex-muted-dark)" }}>PHONE / WHATSAPP</span>
+                <a
+                  href="tel:+916353142650"
+                  style={{ display: "block", marginTop: "0.35rem", fontSize: "1.1rem", fontWeight: 600, color: "#fff" }}
+                >
+                  +91 6353142650 &rarr;
+                </a>
+              </div>
+
+              <div style={{ borderTop: "1px solid #334155", paddingTop: "1rem" }}>
+                <span className="eyebrow" style={{ color: "var(--hsynex-muted-dark)" }}>LOCATION</span>
+                <p style={{ marginTop: "0.35rem", fontSize: "1.05rem", color: "var(--hsynex-text-dim)" }}>
+                  Ahmedabad, India
+                </p>
+              </div>
+
+              <div style={{ borderTop: "1px solid #334155", paddingTop: "1rem" }}>
+                <span className="eyebrow" style={{ color: "var(--hsynex-muted-dark)" }}>RESPONSE WINDOW</span>
+                <p style={{ marginTop: "0.35rem", fontSize: "0.95rem", color: "var(--hsynex-cyan)" }}>
+                  Typical response time: &lt; 12 hours
+                </p>
+              </div>
             </div>
           </div>
 
           {/* Form Side */}
-          <div className="contact-form-panel">
+          <div style={{ borderTop: "1px solid #334155", paddingTop: "1.5rem" }}>
             {submitted ? (
-              <div className="form-success-card">
-                <div className="success-icon-badge">✓</div>
-                <h3 className="success-heading">Message Dispatched</h3>
-                <p className="success-text">
-                  Thank you for contacting HSynex. We will review your project scope and follow up with you directly within 12 hours.
+              <div
+                style={{
+                  border: "1px solid var(--hsynex-border-accent)",
+                  background: "var(--hsynex-surface-card)",
+                  padding: "2.5rem",
+                  borderRadius: "var(--radius-xs)",
+                }}
+              >
+                <span className="eyebrow" style={{ color: "var(--hsynex-cyan)" }}>MESSAGE DISPATCHED</span>
+                <h3 style={{ marginTop: "1rem", fontSize: "1.75rem", fontWeight: 600, color: "#fff" }}>
+                  Thank you for reaching out.
+                </h3>
+                <p style={{ marginTop: "1rem", fontSize: "1rem", lineHeight: 1.7, color: "var(--hsynex-muted)" }}>
+                  We have received your project details and will review your technical requirements before replying within 12 hours.
                 </p>
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setSubmitted(false)}
-                >
-                  Send Another Message
-                </button>
+                <div style={{ marginTop: "2rem" }}>
+                  <HSButton onClick={() => setSubmitted(false)} secondary>
+                    SEND ANOTHER MESSAGE
+                  </HSButton>
+                </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="project-inquiry-form">
-                <h3 className="form-box-title">Start a Project Inquiry</h3>
-
-                <div className="form-group-stack">
-                  <div className="form-field">
-                    <label htmlFor="name">Your Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      placeholder="Alex Mercer"
-                      required
-                    />
-                  </div>
-
-                  <div className="form-field">
-                    <label htmlFor="email">Work Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="alex@company.com"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="form-group-stack">
-                  <div className="form-field">
-                    <label htmlFor="phone">Phone / WhatsApp (Optional)</label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      placeholder="+1 (555) 000-0000"
-                    />
-                  </div>
-
-                  <div className="form-field">
-                    <label htmlFor="projectType">Project Type</label>
-                    <select
-                      id="projectType"
-                      name="projectType"
-                      value={formData.projectType}
-                      onChange={handleInputChange}
-                    >
-                      <option value="SaaS Product Engineering">SaaS Product Engineering</option>
-                      <option value="Business Platform / ERP">Business Platform / ERP</option>
-                      <option value="Web & Mobile App">Web & Mobile Application</option>
-                      <option value="CMS & Automation">Custom CMS & Automation</option>
-                      <option value="HSynex Restaurant Demo">HSynex Restaurant Demo</option>
-                      <option value="Technical Consultation">Technical Consultation</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="form-field">
-                  <label htmlFor="message">Project Overview & Goals</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows="4"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    placeholder="Tell us what you're building, key challenges, or timeline targets..."
+              <form onSubmit={handleSubmit} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
+                <div className="hs-field" style={{ gridColumn: "span 1" }}>
+                  <label htmlFor="contact-name">NAME</label>
+                  <input
+                    id="contact-name"
+                    name="name"
+                    type="text"
                     required
-                  ></textarea>
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="Alex Mercer"
+                    className="hs-input"
+                  />
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-lg full-width-btn">
-                  <span>Send Project Details</span>
-                  <svg className="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </button>
+                <div className="hs-field" style={{ gridColumn: "span 1" }}>
+                  <label htmlFor="contact-email">EMAIL</label>
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="alex@company.com"
+                    className="hs-input"
+                  />
+                </div>
+
+                <div className="hs-field" style={{ gridColumn: "span 1" }}>
+                  <label htmlFor="contact-company">COMPANY</label>
+                  <input
+                    id="contact-company"
+                    name="company"
+                    type="text"
+                    value={formData.company}
+                    onChange={handleInputChange}
+                    placeholder="Acme Labs Inc."
+                    className="hs-input"
+                  />
+                </div>
+
+                <div className="hs-field" style={{ gridColumn: "span 1" }}>
+                  <label htmlFor="contact-project-type">PROJECT TYPE</label>
+                  <select
+                    id="contact-project-type"
+                    name="projectType"
+                    value={formData.projectType}
+                    onChange={handleInputChange}
+                    className="hs-select"
+                  >
+                    <option value="Web Application">Web Application</option>
+                    <option value="Mobile Application">Mobile Application</option>
+                    <option value="Business Software">Business Software</option>
+                    <option value="SaaS Development">SaaS Development</option>
+                    <option value="CMS & Admin Systems">CMS & Admin Systems</option>
+                    <option value="Automation & Integrations">Automation & Integrations</option>
+                    <option value="HSynex Restaurant Demo">HSynex Restaurant Demo</option>
+                    <option value="Other">Other Custom Build</option>
+                  </select>
+                </div>
+
+                <div className="hs-field" style={{ gridColumn: "span 2" }}>
+                  <label htmlFor="contact-details">PROJECT DETAILS</label>
+                  <textarea
+                    id="contact-details"
+                    name="details"
+                    rows="5"
+                    required
+                    value={formData.details}
+                    onChange={handleInputChange}
+                    placeholder="What are you trying to build, improve, or automate? Any timeline or scale goals?"
+                    className="hs-textarea"
+                  />
+                </div>
+
+                <div style={{ gridColumn: "span 2", marginTop: "0.5rem" }}>
+                  <HSButton type="submit">
+                    START A CONVERSATION
+                  </HSButton>
+                </div>
               </form>
             )}
           </div>
         </div>
-      </section>
 
-      {/* FAQ Section */}
-      <section className="contact-faq-section">
-        <div className="container">
-          <SectionHeader
-            subtitle="FREQUENTLY ASKED"
-            title="Common Questions"
-            centered={true}
+        {/* FAQs Accordion */}
+        <div style={{ marginTop: "8rem" }}>
+          <SectionTitle
+            eyebrow="FREQUENTLY ASKED"
+            title="COMMON QUESTIONS"
+            text="Clear answers about how we collaborate, scope, and deliver software."
           />
 
-          <div className="faqs-accordion-list">
+          <div style={{ marginTop: "2.5rem", display: "flex", flexDirection: "column" }}>
             {faqs.map((faq, idx) => (
               <div
                 key={faq.q}
-                className={`faq-accordion-box ${openFaq === idx ? "open" : ""}`}
                 onClick={() => toggleFaq(idx)}
+                style={{
+                  borderTop: "1px solid #334155",
+                  padding: "1.5rem 0",
+                  cursor: "pointer",
+                }}
               >
-                <div className="faq-question-row">
-                  <h4>{faq.q}</h4>
-                  <span className="faq-plus-icon">{openFaq === idx ? "−" : "+"}</span>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <h4 style={{ fontSize: "1.05rem", fontWeight: 600, color: "#fff" }}>
+                    {faq.q}
+                  </h4>
+                  <span style={{ fontSize: "1.25rem", color: "var(--hsynex-cyan)", fontWeight: 300, marginLeft: "1rem" }}>
+                    {openFaq === idx ? "−" : "+"}
+                  </span>
                 </div>
                 {openFaq === idx && (
-                  <div className="faq-answer-body">
-                    <p>{faq.a}</p>
-                  </div>
+                  <p style={{ marginTop: "1rem", fontSize: "0.95rem", lineHeight: 1.7, color: "var(--hsynex-muted)" }}>
+                    {faq.a}
+                  </p>
                 )}
               </div>
             ))}

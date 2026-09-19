@@ -1,182 +1,94 @@
-import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import SectionHeader from "../components/SectionHeader";
-import "../assets/css/About.css";
-
-function useScrollReveal() {
-  const ref = useRef(null);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-    );
-    const elements = ref.current?.querySelectorAll(".scroll-animate");
-    elements?.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-  return ref;
-}
+import { PageHero, SectionTitle, Timeline, TechStrip, CTASection, HSButton, useSEO } from "../components/UI/EditorialUI";
 
 export default function About() {
-  const pageRef = useScrollReveal();
-
-  const corePillars = [
-    {
-      title: "Business-First Engineering",
-      desc: "We don't build software for the sake of technology. Every architectural choice, database schema, and interface interaction must solve an operational friction point or unlock revenue.",
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-        </svg>
-      ),
-    },
-    {
-      title: "Product Thinking Over 'Agency' Delivery",
-      desc: "We approach projects not as short-term ticket-completers, but as product co-founders — thinking through unit economics, scalability curves, onboarding flows, and release iterations.",
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-          <polyline points="2 17 12 22 22 17"></polyline>
-          <polyline points="2 12 12 17 22 12"></polyline>
-        </svg>
-      ),
-    },
-    {
-      title: "Zero Bloat & Modern Standards",
-      desc: "We reject bloated legacy templates and unnecessary libraries. We engineer lean, accessible, lightning-fast interfaces on modern React and cloud architectures.",
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <polyline points="16 18 22 12 16 6"></polyline>
-          <polyline points="8 6 2 12 8 18"></polyline>
-        </svg>
-      ),
-    },
-    {
-      title: "Security & Long-Term Durability",
-      desc: "Our codebases are built with clean modular abstractions, automated testing, strict authorization boundaries, and thorough documentation for frictionless handover.",
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-        </svg>
-      ),
-    },
-  ];
+  useSEO(
+    "About HSynex — Software Built With Purpose",
+    "HSynex is a software and technology company focused on building practical digital products and business systems. Technology should make business simpler."
+  );
 
   return (
-    <div className="about-page-root" ref={pageRef}>
-      <div className="ambient-glow-top"></div>
+    <div className="about-editorial-page">
+      <PageHero
+        eyebrow="ABOUT HSYNEX"
+        title={
+          <>
+            TECHNOLOGY SHOULD<br />
+            <span style={{ color: "var(--hsynex-cyan)" }}>MAKE BUSINESS SIMPLER.</span>
+          </>
+        }
+        text="HSynex is a software and technology company focused on building practical digital products and business systems."
+      >
+        <HSButton to="/contact">START A CONVERSATION</HSButton>
+      </PageHero>
 
-      {/* Hero Section */}
-      <section className="about-hero-section">
-        <div className="container">
-          <SectionHeader
-            subtitle="WHO WE ARE"
-            title="Building the software layer for forward-thinking businesses."
-            description="HSynex was founded to eliminate the gap between high-level business vision and tactical software engineering."
-            centered={true}
+      {/* What We Believe */}
+      <section className="container" style={{ padding: "clamp(5rem, 8vw, 8rem) var(--container-padding)" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: "3rem",
+            alignItems: "flex-start",
+          }}
+        >
+          <SectionTitle
+            eyebrow="WHAT WE BELIEVE"
+            title="USEFUL SOFTWARE EARNS ITS PLACE."
           />
-        </div>
-      </section>
-
-      {/* Mission & Approach Narrative */}
-      <section className="about-narrative-section">
-        <div className="container narrative-grid">
-          <div className="narrative-col scroll-animate">
-            <span className="subtitle-badge">
-              <span className="subtitle-dot"></span>
-              THE HSYNEX STANDARD
-            </span>
-            <h2 className="narrative-heading">
-              Software engineered with precision, not templates.
-            </h2>
-            <p className="narrative-p">
-              Too many businesses get stuck with cookie-cutter WordPress themes, disjointed no-code tools that break at scale, or oversized agencies that charge six figures for slow progress.
+          <div style={{ maxWidth: "480px" }}>
+            <p style={{ fontSize: "1.15rem", lineHeight: 1.8, color: "var(--hsynex-text-dim)" }}>
+              We believe technology is at its best when it makes a real business easier to run, gives people more clarity, and creates room for better work.
             </p>
-            <p className="narrative-p">
-              HSynex operates differently. We operate as a high-velocity product engineering studio. We combine technical rigor with deep empathy for business operations, building bespoke platforms that streamline day-to-day work and scale effortlessly.
+            <p style={{ marginTop: "1.5rem", fontSize: "1rem", lineHeight: 1.7, color: "var(--hsynex-muted)" }}>
+              Too many businesses get stuck with cookie-cutter templates, disjointed no-code tools that break under daily transaction volume, or bloated agencies that charge high retainers for slow progress. HSynex operates differently: senior engineering craftsmanship, direct communication, and zero vanity features.
             </p>
           </div>
-
-          <div className="narrative-visual-col scroll-animate">
-            <div className="architecture-box">
-              <div className="arch-header">
-                <span className="arch-dot"></span>
-                <span>HSynex Engineering Principles</span>
-              </div>
-              <div className="arch-body">
-                <div className="arch-item">
-                  <span className="arch-check">✓</span>
-                  <div>
-                    <strong>Type-Safe & Modular Architecture</strong>
-                    <p>Maintainable codebases that grow with your team.</p>
-                  </div>
-                </div>
-                <div className="arch-item">
-                  <span className="arch-check">✓</span>
-                  <div>
-                    <strong>Sub-Second Response Targets</strong>
-                    <p>Optimized database indexes and edge-cached frontends.</p>
-                  </div>
-                </div>
-                <div className="arch-item">
-                  <span className="arch-check">✓</span>
-                  <div>
-                    <strong>Direct Principal Communication</strong>
-                    <p>Work directly with engineers and product architects.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
 
-      {/* Core Pillars */}
-      <section className="about-pillars-section">
-        <div className="container">
-          <SectionHeader
-            subtitle="HOW WE WORK"
-            title="Our Guiding Values"
-            centered={true}
-          />
-
-          <div className="pillars-cards-grid">
-            {corePillars.map((p, idx) => (
-              <div
-                key={p.title}
-                className="pillar-card card-glow-hover scroll-animate"
-                style={{ transitionDelay: `${idx * 0.1}s` }}
-              >
-                <div className="pillar-icon-box">{p.icon}</div>
-                <h3 className="pillar-card-title">{p.title}</h3>
-                <p className="pillar-card-desc">{p.desc}</p>
+        {/* Engineering Standards */}
+        <div style={{ marginTop: "6rem", borderTop: "1px solid var(--hsynex-border)", paddingTop: "3rem" }}>
+          <p className="eyebrow" style={{ marginBottom: "1.5rem" }}>ENGINEERING PILLARS</p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gap: "2rem",
+            }}
+          >
+            {[
+              ["01", "MODULAR ARCHITECTURE", "Maintainable, clean codebases designed to evolve cleanly as your product scales."],
+              ["02", "SUB-SECOND PERFORMANCE", "Optimized database indexes and edge-cached frontends for near-instant latency."],
+              ["03", "DIRECT ENGAGEMENT", "Work directly with principal software engineers rather than layers of sales reps."],
+              ["04", "ZERO-BLOAT DESIGN", "Dark-first, high-accessibility UI built strictly with modern web standards."],
+            ].map(([num, title, desc]) => (
+              <div key={num} style={{ borderTop: "1px solid #334155", paddingTop: "1.25rem" }}>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.8rem", color: "var(--hsynex-cyan)" }}>
+                  {num}
+                </span>
+                <h3 style={{ marginTop: "0.75rem", fontSize: "0.875rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#fff" }}>
+                  {title}
+                </h3>
+                <p style={{ marginTop: "0.5rem", fontSize: "0.9rem", lineHeight: 1.6, color: "var(--hsynex-muted)" }}>
+                  {desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* CTA */}
-      <section className="about-cta-section">
-        <div className="container">
-          <div className="about-cta-container scroll-animate">
-            <h2>Ready to build something lasting?</h2>
-            <p>
-              Whether you need to architect a new commercial SaaS or modernize an outdated business system, let's talk.
-            </p>
-            <Link to="/contact" className="btn btn-primary btn-lg">
-              Start the Conversation
-            </Link>
-          </div>
+        {/* How We Work (Timeline) */}
+        <div style={{ marginTop: "6rem" }}>
+          <SectionTitle
+            eyebrow="HOW WE WORK"
+            title="DISCOVER. DESIGN. BUILD. LAUNCH. IMPROVE."
+            text="A predictable, transparent roadmap from initial architectural deep-dive to production monitoring."
+          />
+          <Timeline />
         </div>
       </section>
+
+      <TechStrip />
+      <CTASection />
     </div>
   );
 }
