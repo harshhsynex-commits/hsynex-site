@@ -97,10 +97,10 @@ export default function Footer() {
           <h4 className="footer-col-title">Products &amp; Company</h4>
           <ul className="footer-links-list">
             <li>
-              <Link to="/products">Commercial Products</Link>
+              <Link to="/products">Product Lab (Coming Soon)</Link>
             </li>
             <li>
-              <Link to="/products/restaurant">HSynex Restaurant (OS)</Link>
+              <Link to="/products">Hospitality OS (In Dev)</Link>
             </li>
             <li>
               <Link to="/about">About HSynex</Link>

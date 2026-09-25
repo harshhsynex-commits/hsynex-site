@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import ProductMockup from "../components/UI/ProductMockup";
+import ProductLabComingSoon from "../components/UI/ProductLabComingSoon";
 import {
   HSButton,
   SectionTitle,
@@ -221,40 +221,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. FEATURED PRODUCT (HSYNEX RESTAURANT) */}
+      {/* 4. PRODUCT DEPARTMENT & R&D PIPELINE (COMING SOON) */}
       <section id="products" className="container" style={{ padding: "clamp(5rem, 9vw, 8.5rem) var(--container-padding)" }}>
         <SectionTitle
-          eyebrow="FEATURED PRODUCT / 01"
+          eyebrow="PRODUCT DEPARTMENT // COMING SOON"
           title={
             <>
-              A PRODUCT<br />
-              <span style={{ color: "var(--hsynex-cyan)" }}>WE'RE BUILDING.</span>
+              PROPRIETARY SOFTWARE.<br />
+              <span style={{ color: "var(--hsynex-cyan)" }}>CURRENTLY IN DEVELOPMENT.</span>
             </>
           }
-          text="A modern restaurant management platform designed to bring orders, tables, menu management, inventory and business operations into one connected system."
+          text="Beyond client software engineering, HSynex's product division is actively designing and developing proprietary operational software and vertical platforms. Explore our confidential pipeline below."
         />
 
-        <div style={{ marginTop: "2.5rem" }}>
-          <ProductMockup variant="showcase" />
-        </div>
-
-        <div className="product-footer-row">
-          <span style={{ fontWeight: 600, color: "#fff", fontSize: "1rem" }}>
-            HSynex Restaurant
-          </span>
-          <Link
-            to="/products/restaurant"
-            style={{
-              fontSize: "11px",
-              fontWeight: 700,
-              letterSpacing: "0.15em",
-              color: "var(--hsynex-cyan)",
-              textTransform: "uppercase",
-            }}
-          >
-            EXPLORE PRODUCT &rarr;
-          </Link>
-        </div>
+        <ProductLabComingSoon />
       </section>
 
       {/* 5. THE METHOD (PROCESS TIMELINE) */}

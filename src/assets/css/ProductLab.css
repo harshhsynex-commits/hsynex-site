@@ -1,0 +1,680 @@
+/* ==========================================================================
+   HSynex Product Department & In-Development Console Styles
+   Matches the Dark-First Technical Editorial Aesthetic
+   ========================================================================== */
+
+.product-lab-wrapper {
+  position: relative;
+  margin-top: 2.5rem;
+}
+
+/* Glowing Ambient Backdrop */
+.product-lab-glow {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(85%, 900px);
+  height: 380px;
+  background: radial-gradient(
+    circle,
+    rgba(0, 209, 255, 0.07) 0%,
+    rgba(59, 130, 246, 0.04) 45%,
+    transparent 70%
+  );
+  filter: blur(65px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Main Console Container */
+.product-lab-console {
+  position: relative;
+  z-index: 1;
+  background: #0E1622;
+  border: 1px solid #223246;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(0, 209, 255, 0.06);
+  overflow: hidden;
+  transition: border-color var(--transition-smooth);
+}
+
+.product-lab-console:hover {
+  border-color: rgba(0, 209, 255, 0.35);
+}
+
+/* Console Header Bar */
+.lab-console-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1.5rem;
+  background: #0A1018;
+  border-bottom: 1px solid #1E2D3E;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.lab-header-status {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lab-pulse-indicator {
+  position: relative;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #00D1FF;
+}
+
+.lab-pulse-indicator::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(0, 209, 255, 0.4);
+  animation: labPulse 2s infinite ease-out;
+}
+
+@keyframes labPulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+.lab-status-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #F8FAFC;
+}
+
+.lab-stage-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 2px;
+  background: rgba(0, 209, 255, 0.1);
+  border: 1px solid rgba(0, 209, 255, 0.3);
+  color: #00D1FF;
+  text-transform: uppercase;
+}
+
+/* Products Tab Bar */
+.lab-tab-bar {
+  display: flex;
+  background: #0B121C;
+  border-bottom: 1px solid #1E2D3E;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.lab-tab-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.lab-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 1rem 1.4rem;
+  background: transparent;
+  border: none;
+  border-right: 1px solid #1A2635;
+  color: var(--hsynex-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.lab-tab-btn:hover {
+  color: #F8FAFC;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.lab-tab-btn.active {
+  color: #00D1FF;
+  background: rgba(0, 209, 255, 0.04);
+  font-weight: 600;
+}
+
+.lab-tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #00D1FF;
+  box-shadow: 0 0 10px #00D1FF;
+}
+
+.lab-tab-num {
+  color: var(--hsynex-muted-dark);
+  font-size: 0.7rem;
+}
+
+.lab-tab-btn.active .lab-tab-num {
+  color: #00D1FF;
+}
+
+.lab-tab-pill {
+  font-size: 0.62rem;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--hsynex-muted);
+  text-transform: uppercase;
+}
+
+.lab-tab-btn.active .lab-tab-pill {
+  background: rgba(0, 209, 255, 0.15);
+  color: #00D1FF;
+}
+
+/* Active Product Body */
+.lab-card-body {
+  padding: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.lab-body-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.25rem;
+}
+
+@media (min-width: 900px) {
+  .lab-body-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 3rem;
+  }
+}
+
+/* Left Column: Product Info */
+.lab-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.lab-codename {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--hsynex-muted);
+  text-transform: uppercase;
+}
+
+.lab-product-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  color: #FFFFFF;
+  margin-bottom: 0.85rem;
+}
+
+.lab-product-desc {
+  font-size: clamp(0.92rem, 1.1vw, 1.02rem);
+  line-height: 1.7;
+  color: var(--hsynex-muted);
+  margin-bottom: 1.75rem;
+}
+
+/* Spec Badges */
+.lab-specs-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--hsynex-muted-dark);
+  text-transform: uppercase;
+  margin-bottom: 0.65rem;
+}
+
+.lab-specs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.lab-spec-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 3px;
+  background: #131E2D;
+  border: 1px solid #1E2F44;
+  color: #CBD5E1;
+}
+
+.lab-spec-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #00D1FF;
+}
+
+/* Right Column: Engineering Telemetry & Progress */
+.lab-telemetry-panel {
+  background: #090F17;
+  border: 1px solid #1A2737;
+  border-radius: var(--radius-sm);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.telemetry-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.telemetry-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.telemetry-label {
+  color: var(--hsynex-muted);
+}
+
+.telemetry-val {
+  color: #00D1FF;
+  font-weight: 600;
+}
+
+/* Progress Bar */
+.telemetry-progress-track {
+  width: 100%;
+  height: 6px;
+  background: #141D29;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid #202D3E;
+}
+
+.telemetry-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3B82F6 0%, #00D1FF 100%);
+  border-radius: 2px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 10px rgba(0, 209, 255, 0.5);
+}
+
+/* Milestone Cards */
+.telemetry-milestones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+  padding-top: 1rem;
+  border-top: 1px solid #162231;
+}
+
+.milestone-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.milestone-caption {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--hsynex-muted-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.milestone-text {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: #F8FAFC;
+  font-weight: 600;
+}
+
+/* Waitlist / Early Access Box */
+.lab-waitlist-box {
+  background: #0C1420;
+  border: 1px solid #1E2D3F;
+  border-radius: var(--radius-sm);
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.waitlist-header {
+  margin-bottom: 0.85rem;
+}
+
+.waitlist-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+
+.waitlist-subtitle {
+  font-size: 0.85rem;
+  color: var(--hsynex-muted);
+  margin-top: 0.25rem;
+  line-height: 1.5;
+}
+
+.waitlist-form {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.waitlist-input {
+  flex: 1;
+  min-width: 220px;
+  background: #080D15;
+  border: 1px solid #233449;
+  border-radius: var(--radius-xs);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: #F8FAFC;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.waitlist-input:focus {
+  border-color: #00D1FF;
+  box-shadow: 0 0 0 2px rgba(0, 209, 255, 0.15);
+  background: #0B121C;
+}
+
+.waitlist-input::placeholder {
+  color: var(--hsynex-muted-dark);
+}
+
+.waitlist-btn {
+  background: #00D1FF;
+  color: #071018;
+  border: none;
+  border-radius: var(--radius-xs);
+  padding: 0.75rem 1.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.waitlist-btn:hover {
+  background: #38e1ff;
+  box-shadow: 0 0 16px rgba(0, 209, 255, 0.4);
+}
+
+.waitlist-success {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: var(--radius-xs);
+  color: #34D399;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+/* Footer Action Row in Console */
+.lab-console-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.15rem 1.75rem;
+  background: #0A1018;
+  border-top: 1px solid #1E2D3E;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.lab-footer-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--hsynex-muted);
+}
+
+.lab-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #00D1FF;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.lab-footer-link:hover {
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   Full Products Page (Roadmap & Department Overview) Styles
+   ========================================================================== */
+
+.products-pipeline-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 3.5rem;
+}
+
+@media (min-width: 900px) {
+  .products-pipeline-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pipeline-card {
+  background: #0E1622;
+  border: 1px solid #1F2E40;
+  border-radius: var(--radius-sm);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.pipeline-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #1F2E40;
+  transition: background 0.25s ease;
+}
+
+.pipeline-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0, 209, 255, 0.4);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 209, 255, 0.05);
+}
+
+.pipeline-card:hover::before {
+  background: #00D1FF;
+  box-shadow: 0 0 12px #00D1FF;
+}
+
+.pipeline-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.pipeline-card-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--hsynex-muted-dark);
+}
+
+.pipeline-card-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.badge-alpha {
+  background: rgba(0, 209, 255, 0.12);
+  border: 1px solid rgba(0, 209, 255, 0.35);
+  color: #00D1FF;
+}
+
+.badge-sprint {
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  color: #60A5FA;
+}
+
+.badge-arch {
+  background: rgba(148, 163, 184, 0.1);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: #94A3B8;
+}
+
+.pipeline-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  margin-bottom: 0.75rem;
+}
+
+.pipeline-card-desc {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--hsynex-muted);
+  margin-bottom: 1.75rem;
+}
+
+.pipeline-card-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.75rem;
+}
+
+.pipeline-spec-pill {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 2px;
+  background: #131E2C;
+  color: var(--hsynex-muted);
+  border: 1px solid #1C2B3E;
+}
+
+.pipeline-card-footer {
+  padding-top: 1.25rem;
+  border-top: 1px solid #182332;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.pipeline-target-label {
+  color: var(--hsynex-muted-dark);
+}
+
+.pipeline-target-val {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+/* R&D Philosophy Grid */
+.lab-values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+@media (min-width: 768px) {
+  .lab-values-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.lab-value-col {
+  border-top: 1px solid #233144;
+  padding-top: 1.5rem;
+}
+
+.lab-value-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #00D1FF;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.lab-value-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 0.65rem;
+}
+
+.lab-value-desc {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--hsynex-muted);
+}

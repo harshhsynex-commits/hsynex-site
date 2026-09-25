@@ -13,7 +13,7 @@
 .home-hero-section {
   position: relative;
   border-bottom: 1px solid rgba(31, 41, 55, 0.8);
-  padding-top: clamp(5.5rem, 10vw, 7.5rem);
+  padding-top: clamp(3rem, 10vw, 5rem);
   padding-bottom: clamp(4rem, 7vw, 6rem);
 }
 

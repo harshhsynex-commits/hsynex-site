@@ -163,13 +163,14 @@ export default function Navbar() {
                     className={`nav-link-item nav-dropdown-trigger ${
                       isCurrent || isOpen ? "active" : ""
                     }`}
-                    onClick={() =>
-                      setActiveDropdown(isOpen ? null : item.id)
-                    }
+                    onClick={() => setActiveDropdown(isOpen ? null : item.id)}
                     aria-expanded={isOpen}
                     aria-haspopup="true"
                   >
                     <span>{item.name}</span>
+                    {item.badge && (
+                      <span className="nav-top-badge">{item.badge}</span>
+                    )}
                     <svg
                       className={`nav-chevron ${isOpen ? "open" : ""}`}
                       width="12"
@@ -188,14 +189,17 @@ export default function Navbar() {
                     className={`nav-link-item ${isCurrent ? "active" : ""}`}
                     onClick={(e) => handleLinkClick(item, e)}
                   >
-                    {item.name}
+                    <span>{item.name}</span>
+                    {item.badge && (
+                      <span className="nav-top-badge">{item.badge}</span>
+                    )}
                   </Link>
                 )}
 
                 {/* Mega-Menu Panel */}
                 {hasMegaMenu && (
                   <div
-                    className={`mega-menu-panel mega-menu-${item.id} ${isOpen ? "is-visible" : ""}`}
+                    className={`mega-menu-panel ${isOpen ? "is-visible" : ""}`}
                     role="region"
                     aria-label={`${item.name} menu`}
                   >
@@ -253,13 +257,11 @@ export default function Navbar() {
                                 onClick={(e) =>
                                   handleLinkClick(
                                     { path: item.megaMenu.featured.link },
-                                    e
+                                    e,
                                   )
                                 }
                               >
-                                <span>
-                                  {item.megaMenu.featured.linkText}
-                                </span>
+                                <span>{item.megaMenu.featured.linkText}</span>
                                 <svg
                                   width="14"
                                   height="14"
@@ -308,7 +310,9 @@ export default function Navbar() {
           <button
             className={`mobile-toggle-btn ${mobileMenuOpen ? "active" : ""}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={
+              mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
             aria-expanded={mobileMenuOpen}
           >
             <span className="hamburger-bar"></span>
@@ -379,7 +383,12 @@ export default function Navbar() {
                   }`}
                   onClick={() => toggleMobileAccordion(item.id)}
                 >
-                  <span>{item.name}</span>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
+                    <span>{item.name}</span>
+                    {item.badge && (
+                      <span className="nav-top-badge">{item.badge}</span>
+                    )}
+                  </span>
                   <svg
                     className={`mobile-accordion-chevron ${
                       isExpanded ? "rotated" : ""
@@ -432,7 +441,7 @@ export default function Navbar() {
                           onClick={(e) =>
                             handleLinkClick(
                               { path: item.megaMenu.featured.link },
-                              e
+                              e,
                             )
                           }
                         >

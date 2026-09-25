@@ -29,7 +29,6 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 100%;
 }
 
 /* Brand Logo */
@@ -65,14 +64,12 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  height: 100%;
 }
 
 .nav-item-wrapper {
-  position: static;
+  position: relative;
   display: flex;
   align-items: center;
-  height: 100%;
 }
 
 .nav-link-item {
@@ -127,9 +124,9 @@
    ========================================================================== */
 
 .mega-menu-panel {
-  position: absolute;
-  top: 100%;
-  left: 50%;
+  position: fixed;
+  top: 8vh;
+  left: 50vw;
   transform: translateX(-50%) translateY(8px);
   width: min(90vw, 1280px);
   max-width: 90vw;
@@ -170,33 +167,7 @@
   -webkit-backdrop-filter: blur(24px);
 }
 
-/* Solutions Mega-Menu: Single-row 3 columns up to 90vw (max 1280px) */
-.mega-menu-panel.mega-menu-solutions {
-  width: min(90vw, 1280px);
-  max-width: 90vw;
-}
-
-.mega-menu-panel.mega-menu-solutions .mega-menu-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 340px;
-  gap: 2.25rem;
-  align-items: stretch;
-}
-
-/* Products Mega-Menu: Single-row 2 columns centered up to 90vw (max 860px) */
-.mega-menu-panel.mega-menu-products {
-  width: min(90vw, 860px);
-  max-width: 90vw;
-}
-
-.mega-menu-panel.mega-menu-products .mega-menu-grid {
-  display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 2.25rem;
-  align-items: stretch;
-}
-
-/* Default / Fallback grid layout */
+/* Single-row side-by-side horizontal layout up to 90vw */
 .mega-menu-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 340px;
@@ -205,8 +176,6 @@
 }
 
 @media (max-width: 1024px) {
-  .mega-menu-panel.mega-menu-solutions .mega-menu-grid,
-  .mega-menu-panel.mega-menu-products .mega-menu-grid,
   .mega-menu-grid {
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
@@ -283,6 +252,22 @@
   color: var(--hsynex-cyan);
   border: 1px solid rgba(0, 209, 255, 0.25);
   white-space: nowrap;
+}
+
+.nav-top-badge {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.1rem 0.38rem;
+  border-radius: 2px;
+  background: rgba(0, 209, 255, 0.12);
+  color: var(--hsynex-cyan);
+  border: 1px solid rgba(0, 209, 255, 0.3);
+  margin-left: 0.4rem;
+  vertical-align: middle;
+  line-height: 1.2;
 }
 
 .mega-link-desc {

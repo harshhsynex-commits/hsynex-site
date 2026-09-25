@@ -53,7 +53,7 @@ export default function App() {
 
           {/* 3. Products Suite */}
           <Route path="/products" element={<Products />} />
-          <Route path="/products/restaurant" element={<RestaurantProduct />} />
+          <Route path="/products/restaurant" element={<Navigate to="/products" replace />} />
 
           {/* 4. Company & Contact */}
           <Route path="/about" element={<About />} />
